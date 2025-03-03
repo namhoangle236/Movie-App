@@ -7,7 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();                      // get the login functioon from AuthContext.jsx
+  const { login } = useAuth();                      // get the login function from AuthContext.jsx
   const navigate = useNavigate();                   
 
   const handleSubmit = async (e) => {
