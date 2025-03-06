@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 
@@ -8,14 +8,19 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login } = useAuth();                      // get the login function from AuthContext.jsx
-  const navigate = useNavigate();                   
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // If the user was redirected to login from a protected page, go back to the last non-protected page; otherwise, go to /
+  const from = location.state?.from?.pathname || "/";
+                  
 
   const handleSubmit = async (e) => {
     e.preventDefault();                             // prevent page refresh when submit
     try {
       setError('');
       await login(email, password);                 // pass credentials to login function, if match,
-      navigate('/');                                // navigate to index page
+      navigate(from, { replace: true });            // Redirect to original page OR /search if they came from / ; replace: true removes the prevoius page from the browser history
     } catch (err) {
       setError('Failed to log in');
     }
