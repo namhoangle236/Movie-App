@@ -28,7 +28,7 @@ export default function Layout() {
                             <>
                                 {currentUser ? (
                                     <>
-                                        <li><Link to="/search">Search</Link></li>
+                                        <li><Link to="/">Search</Link></li>
                                         <li><Link to={`/watchlist/${currentUser.email}`}>Watchlist</Link></li>           {/* create personalized path depending on user email */}
                                         <li><Link to={`/watched/${currentUser.email}`}>Watched</Link></li>
                                         <li><button onClick={handleLogout}>Logout</button></li>

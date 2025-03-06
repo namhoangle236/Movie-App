@@ -11,8 +11,9 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // If the user was redirected from a protected page, go back there; otherwise, go to /search
-  const from = location.state?.from?.pathname || "/search";
+  // If the user was redirected to login from a protected page, go back to the last non-protected page; otherwise, go to /
+  const from = location.state?.from?.pathname || "/";
+                  
 
   const handleSubmit = async (e) => {
     e.preventDefault();                             // prevent page refresh when submit
