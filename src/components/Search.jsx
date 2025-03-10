@@ -24,7 +24,7 @@ const Search = () => {
   }, [query]);                                        // run the search when there's change in query
 
   return (
-    <div>
+    <div className="search-container">
       <h2>Movie Search</h2>
       <input
         type="text"
@@ -32,9 +32,9 @@ const Search = () => {
         value={query}                                 // set the input value to the query state when page start, and when there's change in query (this will continuously get updated thanks to setQuery)     
         onChange={(e) => setQuery(e.target.value)}    // set the query state to the input as the user types
       />
-      <ul>
+      <ul className="movie-list">
         {movies.map((movie) => (
-          <li key={movie.id}>
+          <li key={movie.id} className="movie-item">
             <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
             {movie.title}
           </li>

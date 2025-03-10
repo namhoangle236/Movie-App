@@ -25,6 +25,8 @@ a:hover {
 body {
   margin: 0;
   display: flex;
+  justify-content: center;
+  align-items: center;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -65,4 +67,59 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+
+
+/* -------------------------------------  Search styles --------------------------------------- */
+.search-container {
+  font-family: Arial, sans-serif;
+  width: 50vw;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #444343;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-container h2 {
+  color: #e1e1e1;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.movie-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.movie-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;    /* line to separate each movie */
+  padding-bottom: 15px;
+}
+
+.movie-item img {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+  margin-right: 15px;
+  border-radius: 4px;
+}
+
+.movie-item span {
+  font-size: 1.1em;
+  color: #333;
 }
