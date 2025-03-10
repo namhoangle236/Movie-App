@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {    // note: firebase will pass in the 'user' value behind the scene
+    const unsubscribe = onAuthStateChanged(auth, (user) => {    // note: firebase will pass in the 'user' values behind the scene
       setCurrentUser(user);
       setLoading(false);
     });

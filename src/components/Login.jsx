@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -7,14 +7,24 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();                      // get the login function from AuthContext.jsx
+  const { login, currentUser } = useAuth();                      // get the login function from AuthContext.jsx -- Also get the currentUser to check if user is already logged in for a later part, and to redirect them elsewhere if they try to access the login page again
   const navigate = useNavigate();
   const location = useLocation();
   
   // If the user was redirected to login from a protected page, go back to the last non-protected page; otherwise, go to /
   const from = location.state?.from?.pathname || "/";
+
+
+  // Prevent logged-in user from accessing the login page
+  useEffect(() => {
+    if (currentUser) {
+      console.log("Current User:", currentUser);    // Debugging log
+      navigate("/", { replace: true });             // Redirect to home immediately ; replace: true removes the prevoius page from the browser history
+    }
+  }, [currentUser, navigate]);
                   
 
+  // On submit login credentials
   const handleSubmit = async (e) => {
     e.preventDefault();                             // prevent page refresh when submit
     try {

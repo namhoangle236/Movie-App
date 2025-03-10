@@ -4,7 +4,6 @@ import { useAuth } from '../context/AuthContext';
 const Search = () => {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-//   const { currentUser } = useAuth();         // Optional if we want to check logged-in user
 
   const API_KEY = "7c72c1b67c6abe3b675236e07076b41b";
 
