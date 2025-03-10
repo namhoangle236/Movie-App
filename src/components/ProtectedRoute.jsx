@@ -22,3 +22,30 @@ export default function ProtectedRoute() {
 // so if the user presses the back button in the browser after being redirected:
 // they will return to the page they were on before trying to visit the protected page (not the protected page itself).
 // at the same time, state={{ from: location }} saves the page they originally tried to visit, so we can use it after login.
+
+// =========================================================================================================================
+
+// Example before navigating to /login:
+// {
+//     "pathname": "/dashboard",
+//     "search": "",
+//     "hash": "",
+//     "state": undefined
+//   }
+
+// After navigating to /login, and passing the current location to the 'state' key of the login route:
+// {
+//     "pathname": "/login",      // Current route (after navigation)
+//     "search": "",              // Query string (if any)
+//     "hash": "",                // Fragment (if any)
+//     "state": {                 // The state passed during navigation
+//       "from": {                // The `from` key holds the previous location
+//         "pathname": "/dashboard",  // The previous route the user was on
+//         "search": "",
+//         "hash": "",
+//         "state": undefined      // No state passed from /dashboard
+//       }
+//     }
+//   }
+  
+  
