@@ -101,6 +101,8 @@ button:focus-visible {
   list-style: none;
   padding: 0;
   margin: 0;
+  max-height: 300px;                  /* limit the height of the list */
+  overflow-y: auto;                   /* so that there's a scrollbar when the list is too long (based on max-height)*/
 }
 
 .movie-item {
@@ -123,3 +125,5 @@ button:focus-visible {
   font-size: 1.1em;
   color: #333;
 }
+
+

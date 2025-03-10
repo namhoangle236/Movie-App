@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import MovieCard from "./MovieCard";
 import { useAuth } from '../context/AuthContext';
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);   // to store the selected movie for movie card
 
   const API_KEY = "7c72c1b67c6abe3b675236e07076b41b";
 
@@ -32,14 +34,24 @@ const Search = () => {
         value={query}                                 // set the input value to the query state when page start, and when there's change in query (this will continuously get updated thanks to setQuery)     
         onChange={(e) => setQuery(e.target.value)}    // set the query state to the input as the user types
       />
-      <ul className="movie-list">
-        {movies.map((movie) => (
-          <li key={movie.id} className="movie-item">
-            <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
-            {movie.title}
-          </li>
-        ))}
-      </ul>
+
+      {/* if there's a selected movie, display MovieCard and back button and hide the movie-list */}
+      {selectedMovie ? (
+        <MovieCard movie={selectedMovie} onBack={() => setSelectedMovie(null)} />
+      ) : (
+        <ul className="movie-list">
+          {movies.map((movie) => (
+            <li key={movie.id} 
+            className="movie-item"
+            onClick={() => setSelectedMovie(movie)}
+            style={{ cursor: "pointer" }}
+            >
+              <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
+              {movie.title}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
