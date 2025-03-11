@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { useAuth } from '../context/AuthContext';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';// Layout Component
 
@@ -8,9 +7,13 @@ export default function Layout() {
     const navigate = useNavigate();
     const location = useLocation();     // get the current route
 
-    function handleLogout() {
-        logout();
-        navigate('/');                  // redirect to the (main) search page after Logout
+    async function handleLogout() {
+        try {
+            await logout();
+            navigate('/');                  // redirect to the (main) search page after Logout
+        } catch (error) {
+            console.error("Failed to log out", + error);
+        }   
     }
 
     // check if we are on the Login page

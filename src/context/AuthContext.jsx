@@ -19,25 +19,25 @@ export const useAuth = () => {
 
 // function to provide context
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null);     // stores the currently logged-in user
+  const [loading, setLoading] = useState(true);             // prevents the app from rendering before Firebase authentification is ready
 
   const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password);     // Calls Firebase’s finction
   };
 
   const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email, password);         // Calls Firebase’s finction
   };
 
   const logout = () => {
-    return signOut(auth);
+    return signOut(auth);                                             // Calls Firebase’s finction
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {    // note: firebase will pass in the 'user' values behind the scene
       setCurrentUser(user);
-      setLoading(false);
+      setLoading(false);                                        // ensures that the app doesn’t display the wrong UI before authentication is ready.
     });
 
     return unsubscribe;
