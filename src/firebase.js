@@ -10,6 +10,12 @@ const firebaseConfig = {
   storageBucket: "movieapp-5d204.firebasestorage.app",
   messagingSenderId: "759539462570",
   appId: "1:759539462570:web:304a201adb62122b093bd3"
+  // apiKey: "AIzaSyAK99vPpjf1B7T3QjZD3zt2TpwmG_O8AIY",
+  // authDomain: "dev-209-project.firebaseapp.com",
+  // projectId: "dev-209-project",
+  // storageBucket: "dev-209-project.firebasestorage.app",
+  // messagingSenderId: "778602118956",
+  // appId: "1:778602118956:web:f87c32ffd3eff782957689"
 };
 
 // Initialize Firebase

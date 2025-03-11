@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 
@@ -35,6 +35,7 @@ const Login = () => {
       setError('Failed to log in');
     }
   };
+
 
   return (
     <div>
@@ -72,6 +73,10 @@ const Login = () => {
         </div>
 
         <button type="submit">Login</button>
+
+        <p>
+          Don't have an account yet? <Link to='/register'>Register here</Link>.
+        </p>
       </form>
     </div>
   );
