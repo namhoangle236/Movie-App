@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
-import { useAuth } from '../context/AuthContext';
+import MovieActionButton from "./MovieActionButton";
+import MovieList from "./MovieList";
+
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -21,7 +23,7 @@ const Search = () => {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => { 
     searchMovies();
   }, [query]);                                        // run the search when there's change in query
 
@@ -39,18 +41,18 @@ const Search = () => {
       {selectedMovie ? (
         <MovieCard movie={selectedMovie} onBack={() => setSelectedMovie(null)} />
       ) : (
-        <ul className="movie-list">
-          {movies.map((movie) => (
-            <li key={movie.id} 
-            className="movie-item"
-            onClick={() => setSelectedMovie(movie)}
-            style={{ cursor: "pointer" }}
-            >
-              <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
-              {movie.title}
-            </li>
-          ))}
-        </ul>
+        <MovieList
+          movies={movies}
+          onMovieSelect={setSelectedMovie}
+          actionButtons={ function (movie) {
+            return (
+              <>
+                <MovieActionButton movie={movie} listType="watchlist" />
+                <MovieActionButton movie={movie} listType="watched" />
+              </>
+            );
+          }} 
+        />
       )}
     </div>
   );
@@ -64,4 +66,4 @@ export default Search;
 // As this happens, useEffect will run the searchMovies function due to changes detected in query.
 // searchMovies will then fetch data from TMDB API and set the movies state with the data fetched (which can be multiple movies, thanks to API Endpoint partial search support)
 
-// Map out the movie to <li> elements, and display the movie title. (and other stuffs like poster, etc)
+
