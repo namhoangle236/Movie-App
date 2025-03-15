@@ -19,18 +19,19 @@ export default function MovieActionButton({ movie, listType}) {
             return;
         }
 
-        // Query Firestore to check if the movie already exists in the list
-        // If it does, don't add it again
+
+        // Reference to the list collection of current user
         const movieRef = collection(db, "users", currentUser.uid, listType); 
+        // create a query 'q' to that reference, where the title is equal to the movie.title
         const q = query(movieRef, where("title", "==", movie.title));
     
 
         const image = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
 
         try {
-            const querySnapshot = await getDocs(q); // Fetch what's in the collection
+            const querySnapshot = await getDocs(q); // send the query to see if the movie already exists
 
-            // If a movie is found, prevent adding a duplicate
+            // If the movie is found, prevent adding a duplicate
             if (!querySnapshot.empty) {
                 alert(`"${movie.title}" is already in ${listType}!`);
                 return;
