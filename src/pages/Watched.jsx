@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { collection, getDocs, deleteDoc, doc, addDoc, query, where } from "firebase/firestore";
 import MovieList from "../components/MovieList";
 import MovieCard from "../components/MovieCard";
+import StarRating from "../components/StarRating";
 
 
 export default function Watched() {
@@ -88,6 +89,10 @@ export default function Watched() {
                             <button onClick={ (e) => {e.stopPropagation(); removeMovie(movie.id)}}>
                                 Remove
                             </button>
+                            
+                            {/* Star Rating Component */}
+                            <StarRating movie={movie} listType="watched" userId={currentUser.uid} />
+     
                         </>
                     )}
                 />

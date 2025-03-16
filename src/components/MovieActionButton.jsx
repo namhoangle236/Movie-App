@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { db } from '../firebase';
 import { useAuth } from '../context/AuthContext';
 import {  collection, addDoc, query, where, getDocs } from 'firebase/firestore';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate,} from 'react-router-dom';
 
 export default function MovieActionButton({ movie, listType}) {
     const { currentUser } = useAuth();
@@ -37,11 +37,11 @@ export default function MovieActionButton({ movie, listType}) {
                 return;
             }
 
-            await addDoc(movieRef, {          // Firestore uses collections → documents → subcollections.
-                title: movie.title,
-                image: image,
-                overview: movie.overview,
-                addedAt: new Date(),
+            await addDoc(movieRef, {            // Firestore uses collections → documents → subcollections.
+                title: movie.title,             // add the movie title to the document
+                image: image,                   // add the movie image
+                overview: movie.overview,       // add the movie details
+                addedAt: new Date(),            // add the date the movie was added
             })
             alert(`Movie added to ${listType}!`);
         } catch (error) {
@@ -50,8 +50,9 @@ export default function MovieActionButton({ movie, listType}) {
     }
 
     return (
-        <button className='add-btn' onClick={handleClick}>
-            {listType === "watchlist" ? "Watchlist" : "Watched"}
-        </button>
+
+            <button className='add-btn' onClick={handleClick}>
+                {listType === "watchlist" ? "Watchlist" : "Watched"}
+            </button>
     )
 }
