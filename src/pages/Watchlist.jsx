@@ -30,7 +30,7 @@ export default function Watchlist() {
 
     return (
         <>
-            <h1>My Watchlist</h1>
+            <h2>My Watchlist</h2>
             {selectedMovie ? (
                 <MovieCard 
                 movie={selectedMovie} 

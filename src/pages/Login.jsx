@@ -46,9 +46,9 @@ const Login = () => {
       )}
 
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className='input-container'>
           {/* React reserve 'for' for for loop, so we use htmlFor */}
-          <label htmlFor="email">Email</label><br />
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
@@ -61,8 +61,8 @@ const Login = () => {
           />
         </div>
 
-        <div>
-          <label htmlFor="password">Password</label><br />
+        <div className='input-container'>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
@@ -73,11 +73,10 @@ const Login = () => {
         </div>
 
         <button type="submit">Login</button>
-
-        <p>
-          Don't have an account yet? <Link to='/register'>Register here</Link>.
-        </p>
       </form>
+      <p>
+        Don't have an account yet? <Link to='/register'>Register here</Link>.
+      </p>
     </div>
   );
 };

@@ -157,7 +157,5 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase }) 
                 </> 
             )}
         </div>
-
-
     )
 }

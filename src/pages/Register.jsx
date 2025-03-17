@@ -30,9 +30,9 @@ export default function Register () {
       )}
 
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className='input-container'>
           {/* React reserve 'for' for for loop, so we use htmlFor */}
-          <label htmlFor="email">Email</label><br />
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
@@ -45,8 +45,8 @@ export default function Register () {
           />
         </div>
 
-        <div>
-          <label htmlFor="password">Password</label><br />
+        <div className='input-container'>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"

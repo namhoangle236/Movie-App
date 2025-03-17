@@ -13,11 +13,10 @@ const MovieCard = ({ movie, onBack, movies, setMoviesFirebase }) => {
       <img
         /* If movie.image exists, it means the movie was saved from Firestore → Use movie.image. */
         src={movie.image || `https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-        alt={movie.title}
+        alt={'poster of ' + movie.title}
       />
       <p>{movie.overview}</p>
       <MovieActionButton  movie={movie} movies={movies} setMoviesFirebase={setMoviesFirebase} />              {/*these change depending on where the movie list is displayed*/} 
-      
     </div>
   );
 };

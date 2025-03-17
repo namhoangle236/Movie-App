@@ -20,8 +20,10 @@ const StarRating = ({ movie, listType, userId }) => {
 
     return (
         <div onClick={(e) => e.stopPropagation()}>
+            <label htmlFor="rating-slider">Your Rating:</label>
             <input 
-                type="range" 
+                type="range"
+                id="rating-slider" 
                 min="0" 
                 max="5" 
                 step="0.5" 

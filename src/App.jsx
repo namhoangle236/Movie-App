@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import Login from './components/Login';
+import "./app.css";
+import Login from './pages/Login';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
-import Register from './components/Register';
+import Register from './pages/Register';
 import Watchlist from './pages/Watchlist';
-import Search from './components/Search';
+import Search from './pages/Search';
 import Watched from './pages/Watched';
 
 const App = () => {

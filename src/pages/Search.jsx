@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import MovieCard from "./MovieCard";
-import MovieList from "./MovieList";
+import MovieCard from "../components/MovieCard";
+import MovieList from "../components/MovieList";
 
 
 const Search = () => {

@@ -30,7 +30,7 @@ export default function Watched() {
 
     return (
         <>
-            <h1>My Watched Movies</h1>
+            <h2>My Watched Movies</h2>
             {selectedMovie ? (
                 <MovieCard 
                     movie={selectedMovie} 

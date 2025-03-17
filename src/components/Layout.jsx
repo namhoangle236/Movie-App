@@ -23,6 +23,7 @@ export default function Layout() {
     return (
         <>
             <header>
+                <h1><a href="/">Movie Tracker</a></h1>
                 <nav>
                     <ul>
                         {isLoginPage ? ( // if on login page, show only search link to come back
@@ -46,7 +47,10 @@ export default function Layout() {
             </header>
             <main>
                 <Outlet />
-            </main>            
+            </main>
+            <footer role="contentinfo">
+                <p>Built by two movie lovers, just for you! &copy; 2025 Movie Tracker.</p>
+            </footer>            
         </>
     )
 }
