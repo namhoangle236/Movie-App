@@ -1,24 +1,24 @@
 import React from "react";
 import { db } from '../firebase';
 import { useAuth } from '../context/AuthContext';
-import {  collection, addDoc, query, where, getDocs } from 'firebase/firestore';
-import { useNavigate,} from 'react-router-dom';
+import {  collection, addDoc, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { useNavigate, useLocation} from 'react-router-dom';
 
-export default function MovieActionButton({ movie, listType}) {
+export default function MovieActionButton({ movie, movies, setMoviesFirebase }) {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
 
     // Function to handle the button click, check if logged in, 
     // add movie to list, check if movie already exists, prevent duplicates
-    const handleClick = async (e) => {
+    const addMovie = async (e, listType) => {
         e.stopPropagation();             // Prevents clicking the <li>
 
         if (!currentUser) {
             navigate('login');
             return;
         }
-
 
         // Reference to the list collection of current user
         const movieRef = collection(db, "users", currentUser.uid, listType); 
@@ -43,16 +43,121 @@ export default function MovieActionButton({ movie, listType}) {
                 overview: movie.overview,       // add the movie details
                 addedAt: new Date(),            // add the date the movie was added
             })
-            alert(`Movie added to ${listType}!`);
+            alert(`${movie.title} added to ${listType}!`);
         } catch (error) {
             console.error(`Error adding to ${listType}: ${error}`);
         }
     }
 
-    return (
+    const removeMovie = async (e, listType, movieId) => {
+        e.stopPropagation();             // Prevents clicking the <li>
 
-            <button className='add-btn' onClick={handleClick}>
-                {listType === "watchlist" ? "Watchlist" : "Watched"}
-            </button>
+        try {
+
+            // Delete the movie from Firestore
+            await deleteDoc(doc(db, "users", currentUser.uid, listType, movieId));
+
+            // Update state by removing the deleted movie from the UI
+                //This creates a new array that excludes the movie we just deleted.
+                //It keeps all movies except the one with id === movieId.
+            setMoviesFirebase(movies.filter(movieInList => movieInList.id !== movieId));
+        } catch (error) {
+            console.error('Error deleting movie from the list', error);
+        }
+    }
+
+    const moveToWatchlist = async (e, movie) => {
+        e.stopPropagation();             // Prevents clicking the <li>
+
+        // Query Firestore to check if the movie already exists in the "watchlist"
+        const watchlistCollection = collection(db, "users", currentUser.uid, "watchlist");          //This targets the specific collection in Firestore where the user's watched movies are stored.
+        const q = query(watchlistCollection, where("title", "==", movie.title));                    //query() is used to search Firestore.
+        const querySnapshot = await getDocs(q);                                                         //getDocs(q) runs the query and returns documents that match the query
+
+        if (!querySnapshot.empty) {
+            alert("This movie is already in your Watchlist!");
+            return;
+        }
+
+        // Add the movie to the "watchlist" and mark as "rewatching"
+        try {
+            await addDoc(collection(db, "users", currentUser.uid, "watchlist"), {
+            title: movie.title,
+            image: movie.image,
+            overview: movie.overview,
+            addedAt: new Date(),
+            rewatching: true, // Mark as rewatching
+            });
+
+            alert("Movie added to the watchlist!")
+        } catch(error) {
+            console.error("Error moving to watchlist", error);
+        }
+    };
+
+    async function moveToWatched(e, movie){
+        e.stopPropagation();             // Prevents clicking the <li>
+
+        // Query Firestore to check if the movie already exists in the "watched" list
+        const watchedCollection = collection(db, "users", currentUser.uid, "watched");          //This targets the specific collection in Firestore where the user's watched movies are stored.
+        const q = query(watchedCollection, where("title", "==", movie.title));                  //query() is used to search Firestore.
+        const querySnapshot = await getDocs(q);                                                     //getDocs(q) runs the query and returns documents that match the query
+
+        // if we are rewatching movie, we just delete it without moving to watched
+        if (!querySnapshot.empty) {
+            await removeMovie(e, "watchlist", movie.id);
+            return;
+        }
+
+        // Add the movie to the "watched" list if it is not already there
+        try {
+            await addDoc(collection(db, "users", currentUser.uid, "watched"), {
+                title: movie.title,
+                image: movie.image,
+                overview: movie.overview,
+                addedAt: new Date(),
+            });
+            await removeMovie(e, "watchlist", movie.id);
+            alert("Movie moved to watched!")
+        } catch(error) {
+            console.error("Error moving to watched", error);
+        }
+    }
+
+    return (
+        <div>
+            {location.pathname === "/" && (
+                <>  
+                    <button className='add-btn' onClick={ (e) => addMovie(e, "watchlist")}>
+                        Watchlist
+                    </button>
+                    <button className='add-btn' onClick={ (e) => addMovie(e, "watched")}>
+                        Watched
+                    </button>
+                </> 
+            )}
+            {location.pathname.includes("watchlist") && (
+                <>  
+                    <button className='add-btn' onClick={ (e) => moveToWatched(e, movie)}>
+                        Watched
+                    </button>
+                    <button className='add-btn' onClick={ (e) => removeMovie(e, "watchlist", movie.id)}>
+                        Remove
+                    </button>
+                </> 
+            )}
+            {location.pathname.includes("watched") && (
+                <>  
+                    <button className='add-btn' onClick={ (e) => moveToWatchlist(e, movie)}>
+                        Watchlist
+                    </button>
+                    <button className='add-btn' onClick={ (e) => removeMovie(e, "watched", movie.id)}>
+                        Remove
+                    </button>
+                </> 
+            )}
+        </div>
+
+
     )
 }

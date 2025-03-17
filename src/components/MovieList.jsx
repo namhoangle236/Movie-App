@@ -1,6 +1,14 @@
 import React from "react";
+import MovieActionButton from "./MovieActionButton";
+import {useLocation} from 'react-router-dom';
+import { useAuth } from "../context/AuthContext";
+import StarRating from "../components/StarRating";
 
-export default function MovieList ({ movies, onMovieSelect, actionButtons}) {
+
+export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) {
+    const location = useLocation();
+    const { currentUser} = useAuth();
+
     return (
         <ul className="movie-list">
             {movies.map((movie) => (
@@ -20,7 +28,13 @@ export default function MovieList ({ movies, onMovieSelect, actionButtons}) {
                         <span style={{ color: "orange", fontWeight: "bold" }}>Rewatching</span>
                     )}
 
-                    {actionButtons(movie)}              {/*these change depending on where the movie list is displayed*/} 
+                    <MovieActionButton  movie={movie} movies={movies} setMoviesFirebase={setMoviesFirebase} />              {/*these change depending on where the movie list is displayed*/} 
+                    
+                    {/* User can put rating to movies in his "watched" list */}
+                    {location.pathname.includes("watched") && (
+                        /* Star Rating Component */
+                        <StarRating movie={movie} listType="watched" userId={currentUser.uid} />
+                    )}
                 </li>
             ))}
         </ul>

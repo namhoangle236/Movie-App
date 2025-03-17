@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
-import MovieActionButton from "./MovieActionButton";
 import MovieList from "./MovieList";
 
 
@@ -43,15 +42,7 @@ const Search = () => {
       ) : (
         <MovieList
           movies={movies}
-          onMovieSelect={setSelectedMovie}
-          actionButtons={ function (movie) {
-            return (
-              <>
-                <MovieActionButton movie={movie} listType="watchlist" />
-                <MovieActionButton movie={movie} listType="watched" />
-              </>
-            );
-          }} 
+          onMovieSelect={setSelectedMovie} 
         />
       )}
     </div>
