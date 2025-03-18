@@ -42,6 +42,7 @@ export default function Register () {
             // even without onChange, the value constantly change as the user type. 
             // Then we select that, and set it to email state
             required
+            aria-label ="Enter you email"
           />
         </div>
 
@@ -53,6 +54,7 @@ export default function Register () {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            aria-label ="Enter you password"
           />
         </div>
 

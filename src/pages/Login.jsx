@@ -58,6 +58,7 @@ const Login = () => {
             // even without onChange, the value constantly change as the user type. 
             // Then we select that, and set it to email state
             required
+            aria-label ="Enter you email"
           />
         </div>
 
@@ -69,6 +70,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            aria-label = "Enter your password"
           />
         </div>
 
