@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import {  collection, addDoc, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { useNavigate, useLocation} from 'react-router-dom';
 
-export default function MovieActionButton({ movie, movies, setMoviesFirebase }) {
+export default function MovieActionButton({ movie, movies, setMoviesFirebase, closeCard }) {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -23,7 +23,9 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase }) 
         // Reference to the list collection of current user
         const movieRef = collection(db, "users", currentUser.uid, listType); 
         // create a query 'q' to that reference, where the title is equal to the movie.title
-        const q = query(movieRef, where("title", "==", movie.title));
+        const q = query(movieRef, 
+                        where("title", "==", movie.title),
+                        where("release_date", "==", movie.release_date));
     
 
         const image = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
@@ -41,6 +43,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase }) 
                 title: movie.title,             // add the movie title to the document
                 image: image,                   // add the movie image
                 overview: movie.overview,       // add the movie details
+                release_date: movie.release_date,
                 addedAt: new Date(),            // add the date the movie was added
             })
             alert(`${movie.title} added to ${listType}!`);
@@ -61,6 +64,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase }) 
                 //This creates a new array that excludes the movie we just deleted.
                 //It keeps all movies except the one with id === movieId.
             setMoviesFirebase(movies.filter(movieInList => movieInList.id !== movieId));
+            closeCard();
         } catch (error) {
             console.error('Error deleting movie from the list', error);
         }
@@ -71,7 +75,9 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase }) 
 
         // Query Firestore to check if the movie already exists in the "watchlist"
         const watchlistCollection = collection(db, "users", currentUser.uid, "watchlist");          //This targets the specific collection in Firestore where the user's watched movies are stored.
-        const q = query(watchlistCollection, where("title", "==", movie.title));                    //query() is used to search Firestore.
+        const q = query(watchlistCollection, 
+                        where("title", "==", movie.title),
+                        where("release_date", "==", movie.release_date));                    //query() is used to search Firestore.
         const querySnapshot = await getDocs(q);                                                         //getDocs(q) runs the query and returns documents that match the query
 
         if (!querySnapshot.empty) {
@@ -85,6 +91,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase }) 
             title: movie.title,
             image: movie.image,
             overview: movie.overview,
+            release_date: movie.release_date,
             addedAt: new Date(),
             rewatching: true, // Mark as rewatching
             });
@@ -100,7 +107,10 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase }) 
 
         // Query Firestore to check if the movie already exists in the "watched" list
         const watchedCollection = collection(db, "users", currentUser.uid, "watched");          //This targets the specific collection in Firestore where the user's watched movies are stored.
-        const q = query(watchedCollection, where("title", "==", movie.title));                  //query() is used to search Firestore.
+        const q = query(watchedCollection, 
+                        where("title", "==", movie.title),
+                        where("title", "==", movie.title),
+                        where("release_date", "==", movie.release_date));                  //query() is used to search Firestore.
         const querySnapshot = await getDocs(q);                                                     //getDocs(q) runs the query and returns documents that match the query
 
         // if we are rewatching movie, we just delete it without moving to watched
@@ -115,10 +125,11 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase }) 
                 title: movie.title,
                 image: movie.image,
                 overview: movie.overview,
+                release_date: movie.release_date,
                 addedAt: new Date(),
             });
+            alert("Movie moved to watched!");
             await removeMovie(e, "watchlist", movie.id);
-            alert("Movie moved to watched!")
         } catch(error) {
             console.error("Error moving to watched", error);
         }

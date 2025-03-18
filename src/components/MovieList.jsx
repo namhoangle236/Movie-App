@@ -21,7 +21,10 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
         
                     {/* If movie.image exists, it means the movie was saved from Firestore → Use movie.image. */}
                     <img src={movie.image || `https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={'poster of ' + movie.title} />
-                    {movie.title}
+                    
+                    <p>{movie.title}</p>
+
+                    <p>{movie.release_date.substring(0, 4)}</p>
 
                     {/* Show "Rewatching" label if the movie is rewatching */}
                     {movie.rewatching && (
