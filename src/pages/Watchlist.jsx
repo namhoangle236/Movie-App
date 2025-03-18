@@ -29,7 +29,7 @@ export default function Watchlist() {
     }, [currentUser]);          // runs on first component load and every time currentUser changes
 
     return (
-        <>
+        <div class='movie-container'>
             <h2>My Watchlist</h2>
             {selectedMovie ? (
                 <MovieCard 
@@ -46,6 +46,6 @@ export default function Watchlist() {
                     setMoviesFirebase = {setMoviesFirebase}
                 />
             )}
-        </>
+        </div>
     )
 }

@@ -69,10 +69,55 @@ button:focus-visible {
   }
 }
 
+/* --------------------------------------  NAV styles ----------------------------------------- */
+nav ul {
+  list-style: none; /* Remove bullet points */
+  padding: 0;
+  margin: 0;
+  display: flex; /* Display items in a row */
+  gap: 20px; /* Add space between links */
+}
+
+nav ul li {
+  display: inline-block; /* Ensure items stay in a row */
+}
+
+nav ul li a,
+nav ul li button {
+  text-decoration: none; /* Remove underline */
+  color: white;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+nav ul li button {
+  background-color: red; /* Highlight logout button */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+nav ul li button:hover {
+  background-color: darkred;
+}
+
+header {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center-align text */
+}
+
+
+h1 a {
+  text-decoration: none;
+  color: white;
+}
 
 
 /* -------------------------------------  Search styles --------------------------------------- */
-.search-container {
+.movie-container {
   font-family: Arial, sans-serif;
   width: 50vw;
   margin: 20px auto;
@@ -82,13 +127,13 @@ button:focus-visible {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.search-container h2 {
+.movie-container h2 {
   color: #e1e1e1;
   text-align: center;
   margin-bottom: 20px;
 }
 
-.search-container input {
+.movie-container input {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
@@ -128,3 +173,45 @@ button:focus-visible {
 
 
 /* ------------------- Fun stuff to try out --------------------- */
+
+/* TV-displpay style */
+
+.tv-container {
+  display: flex;
+  position: relative; /* For positioning child elements */
+  overflow: hidden; /* Prevent video overflow */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  
+  min-width: 100%;  /* Adjust to your desired width */
+  min-height: 100%; /* Adjust to your desired height */
+  margin: 50px auto; /* Center the container on the page */
+}
+
+.image-overlay {
+  position: absolute;
+  z-index: 1; /* Image on top of video */
+  height: 100%; /* Match container height */
+  object-fit: contain; /* Maintain aspect ratio */
+}
+
+.tv-video {
+  object-fit: contain;
+  width: 60%;
+  height: 60%;
+  z-index: -1; /* Place video behind other content */
+}
+
+/* .tv-textBox {
+  color: rgb(232, 232, 232);
+  padding: 20px;
+  position: absolute;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+} */

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
 import MovieList from "../components/MovieList";
+import TVDisplay from "../components/TV-display"; // Import the TV lmaooooo
 
 
 const Search = () => {
@@ -27,26 +28,29 @@ const Search = () => {
   }, [query]);                                        // run the search when there's change in query
 
   return (
-    <div className="search-container">
-      <h2>Movie Search</h2>
-      <input
-        type="text"
-        placeholder="Search for movies..."
-        value={query}                                 // set the input value to the query state when page start, and when there's change in query (this will continuously get updated thanks to setQuery)     
-        onChange={(e) => setQuery(e.target.value)}    // set the query state to the input as the user types
-      />
-
-      {/* if there's a selected movie, display MovieCard and back button and hide the movie-list */}
-      {selectedMovie ? (
-        <MovieCard movie={selectedMovie} onBack={() => setSelectedMovie(null)} />
-      ) : (
-        <MovieList
-          movies={movies}
-          onMovieSelect={setSelectedMovie} 
+    <>
+      <TVDisplay />
+      <div className="movie-container">
+        <h2>Movie Search</h2>
+        <input
+          type="text"
+          placeholder="Search for movies..."
+          value={query}                                 // set the input value to the query state when page start, and when there's change in query (this will continuously get updated thanks to setQuery)     
+          onChange={(e) => setQuery(e.target.value)}    // set the query state to the input as the user types
         />
-      )}
-    </div>
-  );
+
+        {/* if there's a selected movie, display MovieCard and back button and hide the movie-list */}
+        {selectedMovie ? (
+          <MovieCard movie={selectedMovie} onBack={() => setSelectedMovie(null)} />
+        ) : (
+          <MovieList
+            movies={movies}
+            onMovieSelect={setSelectedMovie} 
+          />
+        )}
+      </div>
+    </>
+    );
 };
 
 export default Search;

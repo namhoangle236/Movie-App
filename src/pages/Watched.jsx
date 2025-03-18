@@ -29,7 +29,7 @@ export default function Watched() {
     }, [currentUser]);          // runs on first component load and every time currentUser changes
 
     return (
-        <>
+        <div className="movie-container">
             <h2>My Watched Movies</h2>
             {selectedMovie ? (
                 <MovieCard 
@@ -46,6 +46,6 @@ export default function Watched() {
                     setMoviesFirebase = {setMoviesFirebase}
                 />
             )}
-        </>
+        </div>
     )
 }

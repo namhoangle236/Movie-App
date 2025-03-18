@@ -24,7 +24,7 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
                     
                     <p>{movie.title}</p>
 
-                    <p>{movie.release_date.substring(0, 4)}</p>
+                    <p>{movie.release_date && movie.release_date.substring(0, 4)}</p>
 
                     {/* Show "Rewatching" label if the movie is rewatching */}
                     {movie.rewatching && (
