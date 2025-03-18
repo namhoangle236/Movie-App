@@ -9,6 +9,18 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
     const navigate = useNavigate();
     const location = useLocation();
 
+    //builds the query constraints dynamically
+    function getMovieQuery(movieRef, movie) {
+        
+        const constraints = [where("title", "==", movie.title)];
+        // Only add release_date condition if it exists
+        if (movie.release_date) {
+            constraints.push(where("release_date", "==", movie.release_date));
+        }
+
+        return query(movieRef, ...constraints);
+    }
+
 
     // Function to handle the button click, check if logged in, 
     // add movie to list, check if movie already exists, prevent duplicates
@@ -22,10 +34,8 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
 
         // Reference to the list collection of current user
         const movieRef = collection(db, "users", currentUser.uid, listType); 
-        // create a query 'q' to that reference, where the title is equal to the movie.title
-        const q = query(movieRef, 
-                        where("title", "==", movie.title),
-                        where("release_date", "==", movie.release_date));
+        // create a query 'q' to that reference, where the title is equal to the movie.title, with the same year
+        const q = getMovieQuery(movieRef, movie);
     
 
         const image = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
@@ -43,7 +53,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
                 title: movie.title,             // add the movie title to the document
                 image: image,                   // add the movie image
                 overview: movie.overview,       // add the movie details
-                release_date: movie.release_date,
+                ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists
                 addedAt: new Date(),            // add the date the movie was added
             })
             alert(`${movie.title} added to ${listType}!`);
@@ -75,9 +85,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
 
         // Query Firestore to check if the movie already exists in the "watchlist"
         const watchlistCollection = collection(db, "users", currentUser.uid, "watchlist");          //This targets the specific collection in Firestore where the user's watched movies are stored.
-        const q = query(watchlistCollection, 
-                        where("title", "==", movie.title),
-                        where("release_date", "==", movie.release_date));                    //query() is used to search Firestore.
+        const q = getMovieQuery(watchlistCollection, movie);                    //query() is used to search Firestore.
         const querySnapshot = await getDocs(q);                                                         //getDocs(q) runs the query and returns documents that match the query
 
         if (!querySnapshot.empty) {
@@ -91,7 +99,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
             title: movie.title,
             image: movie.image,
             overview: movie.overview,
-            release_date: movie.release_date,
+            ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists
             addedAt: new Date(),
             rewatching: true, // Mark as rewatching
             });
@@ -107,10 +115,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
 
         // Query Firestore to check if the movie already exists in the "watched" list
         const watchedCollection = collection(db, "users", currentUser.uid, "watched");          //This targets the specific collection in Firestore where the user's watched movies are stored.
-        const q = query(watchedCollection, 
-                        where("title", "==", movie.title),
-                        where("title", "==", movie.title),
-                        where("release_date", "==", movie.release_date));                  //query() is used to search Firestore.
+        const q = getMovieQuery(watchedCollection, movie);                  //query() is used to search Firestore.
         const querySnapshot = await getDocs(q);                                                     //getDocs(q) runs the query and returns documents that match the query
 
         // if we are rewatching movie, we just delete it without moving to watched
@@ -125,7 +130,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
                 title: movie.title,
                 image: movie.image,
                 overview: movie.overview,
-                release_date: movie.release_date,
+                ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists
                 addedAt: new Date(),
             });
             alert("Movie moved to watched!");

@@ -15,7 +15,7 @@ const MovieCard = ({ movie, onBack, movies, setMoviesFirebase }) => {
         src={movie.image || `https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
         alt={'Movie poster of ' + movie.title}
       />
-      <p>{movie.release_date}</p>
+      <p>{movie.release_date && movie.release_date}</p>
       <p>{movie.overview}</p>
       <MovieActionButton  movie={movie} movies={movies} setMoviesFirebase={setMoviesFirebase} closeCard={onBack} />              {/*these change depending on where the movie list is displayed*/} 
     </div>
