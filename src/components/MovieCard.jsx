@@ -8,12 +8,12 @@ import MovieActionButton from "./MovieActionButton";
 const MovieCard = ({ movie, onBack, movies, setMoviesFirebase }) => {
   return (
     <div>
-      <button onClick={onBack}>← Back</button>
+      <button onClick={onBack} aria-label="Go back to the movie list">← Back</button>
       <h2>{movie.title}</h2>
       <img
         /* If movie.image exists, it means the movie was saved from Firestore → Use movie.image. */
         src={movie.image || `https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-        alt={'poster of ' + movie.title}
+        alt={'Movie poster of ' + movie.title}
       />
       <p>{movie.release_date}</p>
       <p>{movie.overview}</p>

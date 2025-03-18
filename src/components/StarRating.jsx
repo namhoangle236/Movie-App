@@ -29,6 +29,7 @@ const StarRating = ({ movie, listType, userId }) => {
                 step="0.5" 
                 value={rating} 
                 onChange={handleRatingChange}
+                aria-labelledby="rating-label"
             />
             <span>{rating} ★</span>
         </div>

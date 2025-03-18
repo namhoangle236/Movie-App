@@ -35,7 +35,7 @@ export default function Layout() {
                                         <li><Link to="/">Search</Link></li>
                                         <li><Link to={`/watchlist/${currentUser.email}`}>Watchlist</Link></li>           {/* create personalized path depending on user email */}
                                         <li><Link to={`/watched/${currentUser.email}`}>Watched</Link></li>
-                                        <li><button onClick={handleLogout}>Logout</button></li>
+                                        <li><button onClick={handleLogout} aria-label="Logout from your account">Logout</button></li>
                                     </>
                                 ) : (
                                     <li><Link to="/login">Login</Link></li>              // the only navigation option users sees when not logged in
