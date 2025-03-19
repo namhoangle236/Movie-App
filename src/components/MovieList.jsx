@@ -31,7 +31,7 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
                         <span style={{ color: "orange", fontWeight: "bold" }}>Rewatching</span>
                     )}
 
-                    <MovieActionButton  movie={movie} movies={movies} setMoviesFirebase={setMoviesFirebase} />              {/*these change depending on where the movie list is displayed*/} 
+                    <MovieActionButton  movie={movie} movies={movies} setMoviesFirebase={setMoviesFirebase} />              {/*changes depending on where the movie list is displayed*/} 
                     
                     {/* User can put rating to movies in his "watched" list */}
                     {location.pathname.includes("watched") && (
