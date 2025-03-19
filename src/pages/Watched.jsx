@@ -11,7 +11,7 @@ export default function Watched() {
     const [moviesFirebase, setMoviesFirebase] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
 
-    // We use useEffect in this case to fetch the user's watchlist from Firestore only when the currentUser changes.
+    // We use useEffect in this case to fetch the user's watchled from Firestore only when the currentUser changes.
     useEffect(() => {
         async function fetchWatchList() {
             if (!currentUser) return;

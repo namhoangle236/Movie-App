@@ -171,6 +171,16 @@ h1 a {
   color: #333;
 }
 
+/* ------------------- Login/Register styles --------------------- */
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.input-container input {
+  width: 50%;
+}
 
 /* ------------------- Fun stuff to try out --------------------- */
 
