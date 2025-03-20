@@ -53,7 +53,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
                 title: movie.title,             // add the movie title to the document
                 image: image,                   // add the movie image
                 overview: movie.overview,       // add the movie details
-                ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists
+                ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists. The spread operator (...) expands an object only if the condition is met.
                 addedAt: new Date(),            // add the date the movie was added
             })
             alert(`${movie.title} added to ${listType}!`);
@@ -99,7 +99,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
             title: movie.title,
             image: movie.image,
             overview: movie.overview,
-            ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists
+            ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists. The spread operator (...) expands an object only if the condition is met.
             addedAt: new Date(),
             rewatching: true, // Mark as rewatching
             });
@@ -130,7 +130,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
                 title: movie.title,
                 image: movie.image,
                 overview: movie.overview,
-                ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists
+                ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists. The spread operator (...) expands an object only if the condition is met.
                 addedAt: new Date(),
             });
             alert("Movie moved to watched!");

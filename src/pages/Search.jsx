@@ -24,7 +24,6 @@ const Search = () => {
   }, [query]);
 
   const searchMovies = async () => {
-    if (!query) return;
     try {
       const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`);
       const data = await response.json();
@@ -83,3 +82,12 @@ const Search = () => {
 };
 
 export default Search;
+
+
+// Note:
+// As the user type, the query state will be updated with the input value. AND the value of the input will be updated with the query state.
+// As this happens, useEffect will run the searchMovies function due to changes detected in query.
+// searchMovies will then fetch data from TMDB API and set the movies state with the data fetched (which can be multiple movies, thanks to API Endpoint partial search support)
+
+// useState assigns initial values when a component mounts(first added to the DOM). Refresh page is considered a mount.
+
