@@ -40,7 +40,7 @@ const Search = () => {
 
 
   // ------------------------------------------------------
-  // Sync query state with the URL when the component mounts or searchParams change due to changes in query
+  // Sync 'query' state with the URL when the component mounts or searchParams change due to changes in query
   // This will allow the user to refresh, go back/foward the page and still see the same query search results
   useEffect(() => {
     const q = searchParams.get('q');
