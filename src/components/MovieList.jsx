@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MovieActionButton from "./MovieActionButton";
 import {useLocation} from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
@@ -8,6 +8,10 @@ import StarRating from "../components/StarRating";
 export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) {
     const location = useLocation();
     const { currentUser} = useAuth();
+
+    useEffect(() => {
+
+    }, [movies]) 
 
     return (
         <ul className="movie-list">
