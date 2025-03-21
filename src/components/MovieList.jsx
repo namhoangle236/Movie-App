@@ -30,9 +30,12 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
 
                     <p>{movie.release_date && movie.release_date.substring(0, 4)}</p>
 
-                    {/* Show "Rewatching" label if the movie is rewatching */}
-                    {movie.rewatching && (
-                        <span style={{ color: "orange", fontWeight: "bold" }}>Rewatching</span>
+                    {/* Show "Rewatching" label and rating if the movie is being rewatched and rated */}
+                    { movie.rewatching && (
+                        <>
+                            <span style={{ color: "orange", fontWeight: "bold" }}>Rewatching</span>
+                            {movie.rating && (<span>{movie.rating} ★</span>)}
+                        </>
                     )}
 
                     <MovieActionButton  movie={movie} movies={movies} setMoviesFirebase={setMoviesFirebase} />              {/*changes depending on where the movie list is displayed*/} 
@@ -40,7 +43,7 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
                     {/* User can put rating to movies in his "watched" list */}
                     {location.pathname.includes("watched") && (
                         /* Star Rating Component */
-                        <StarRating movie={movie} listType="watched" userId={currentUser.uid} />
+                        <StarRating movie={movie} userId={currentUser.uid} />
                     )}
                 </li>
             ))}
