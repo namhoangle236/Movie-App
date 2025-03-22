@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
 
-const StarRating = ({ movie, listType, userId }) => {
+const StarRating = ({ movie, userId }) => {
     const [rating, setRating] = useState(movie.rating || 0);    // If movie.rating exists in user db, use it, otherwise use 0
 
     const handleRatingChange = async (e) => {
@@ -11,7 +11,7 @@ const StarRating = ({ movie, listType, userId }) => {
         setRating(newRating);
 
         try {
-            const movieRef = doc(db, "users", userId, listType, movie.id);
+            const movieRef = doc(db, "users", userId, "watched", movie.id);
             await setDoc(movieRef, { rating: newRating }, { merge: true });
         } catch (error) {
             console.error("Error updating rating:", error);
@@ -27,7 +27,7 @@ const StarRating = ({ movie, listType, userId }) => {
                 min="0" 
                 max="5" 
                 step="0.5" 
-                value={rating} 
+                value={rating === "Not rated yet" ? 0 : rating} 
                 onChange={handleRatingChange}
                 aria-labelledby="rating-label"
             />

@@ -22,7 +22,11 @@ export default function Watchlist() {
             // Convert Firestore documents into an array and update state
             // Firestore stores each movie as a document, and each document has an ID plus the data inside it.
             // To convert Firestore documents into an array of movies, we use:
-            setMoviesFirebase(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data()})));
+            setMoviesFirebase(
+                querySnapshot.docs
+                    .map(doc => ({ id: doc.id, ...doc.data()}))
+                    .sort((a,b) => b.addedAt?.seconds - a.addedAt?.seconds)                     // sorting movies in descending order
+                );
         };
 
         fetchWatchList();
@@ -49,3 +53,7 @@ export default function Watchlist() {
         </div>
     )
 }
+
+
+// notes: .seconds -> represents the time in seconds since January 1, 1970 (Unix time).
+// ?. is optional chaining. It checks if addeddAt exists before accessing .seconds. It prevents errors.

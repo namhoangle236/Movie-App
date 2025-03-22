@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MovieActionButton from "./MovieActionButton";
 import {useLocation} from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
@@ -9,6 +9,10 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
     const location = useLocation();
     const { currentUser} = useAuth();
 
+    useEffect(() => {
+
+    }, [movies]) 
+
     return (
         <ul className="movie-list">
             {movies.map((movie) => (
@@ -16,7 +20,6 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
                     key={movie.id}
                     className="movie-item"
                     onClick={ () => onMovieSelect(movie)}
-                    style={{ cursor: "pointer" }}
                 >
         
                     {/* If movie.image exists, it means the movie was saved from Firestore → Use movie.image. */}
@@ -26,9 +29,12 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
 
                     <p>{movie.release_date && movie.release_date.substring(0, 4)}</p>
 
-                    {/* Show "Rewatching" label if the movie is rewatching */}
-                    {movie.rewatching && (
-                        <span style={{ color: "orange", fontWeight: "bold" }}>Rewatching</span>
+                    {/* Show "Rewatching" label and rating if the movie is being rewatched and rated */}
+                    { movie.rewatching && (
+                        <>
+                            <span className="rewatching-label">Rewatching</span>
+                            {movie.rating && (<span>{movie.rating} ★</span>)}
+                        </>
                     )}
 
                     <MovieActionButton  movie={movie} movies={movies} setMoviesFirebase={setMoviesFirebase} />              {/*changes depending on where the movie list is displayed*/} 
@@ -36,7 +42,7 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
                     {/* User can put rating to movies in his "watched" list */}
                     {location.pathname.includes("watched") && (
                         /* Star Rating Component */
-                        <StarRating movie={movie} listType="watched" userId={currentUser.uid} />
+                        <StarRating movie={movie} userId={currentUser.uid} />
                     )}
                 </li>
             ))}

@@ -7,6 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const { login, currentUser } = useAuth();                      // get the login function from AuthContext.jsx -- Also get the currentUser to check if user is already logged in for a later part, and to redirect them elsewhere if they try to access the login page again
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,7 +19,7 @@ const Login = () => {
   // Prevent logged-in user from accessing the login page
   useEffect(() => {
     if (currentUser) {
-      console.log("Current User:", currentUser);    // Debugging log
+      //console.log("Current User:", currentUser);    // Debugging log
       navigate("/", { replace: true });             // Redirect to home immediately ; replace: true removes the prevoius page from the browser history
     }
   }, [currentUser, navigate]);
@@ -32,7 +33,11 @@ const Login = () => {
       await login(email, password);                 // pass credentials to login function, if match,
       navigate(from, { replace: true });            // Redirect to original page OR /search if they came from / ; replace: true removes the prevoius page from the browser history
     } catch (err) {
-      setError('Failed to log in');
+      if (err.code === 'auth/invalid-credential') {
+        setError('Invalid email or password.');
+      } else {
+        setError(err.message);
+      }
     }
   };
 
@@ -42,7 +47,7 @@ const Login = () => {
       <h2>Login</h2>
 
       {error && (                                    // Only display error if there's one; same as --> error ? <div>{error}</div> : null
-        <div style={{ color: 'red' }}>{error}</div>
+        <div className='error-message'>{error}</div>
       )}
 
       <form onSubmit={handleSubmit}>
@@ -57,6 +62,7 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
             // even without onChange, the value constantly change as the user type. 
             // Then we select that, and set it to email state
+            onFocus={() => setError('')}
             required
             aria-label ="Enter you email"
           />
@@ -65,13 +71,22 @@ const Login = () => {
         <div className='input-container'>
           <label htmlFor="password">Password</label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
             aria-label = "Enter your password"
           />
+          <div className='show-password'>
+            <input
+              type="checkbox"
+              id="show-password"
+              onChange={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            /> 
+            <label htmlFor="show-password">Show Password</label>
+          </div>       
         </div>
 
         <button type="submit">Login</button>

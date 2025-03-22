@@ -32,9 +32,9 @@ export default function Layout() {
                             <>
                                 {currentUser ? (
                                     <>
-                                        <li><Link to="/">Search</Link></li>
-                                        <li><Link to={`/watchlist/${currentUser.email}`}>Watchlist</Link></li>           {/* create personalized path depending on user email */}
-                                        <li><Link to={`/watched/${currentUser.email}`}>Watched</Link></li>
+                                        <li><Link to="/" className={location.pathname === "/" ? "active" : ""}>Search</Link></li>
+                                        <li><Link to={`/watchlist/${currentUser.email}`} className={location.pathname.startsWith(`/watchlist`) ? "active" : ""}>Watchlist</Link></li>           {/* create personalized path depending on user email */}
+                                        <li><Link to={`/watched/${currentUser.email}`} className={location.pathname.startsWith(`/watched`) ? "active" : ""}>Watched</Link></li>
                                         <li><button onClick={handleLogout} aria-label="Logout from your account">Logout</button></li>
                                     </>
                                 ) : (

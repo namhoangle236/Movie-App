@@ -54,6 +54,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
                 image: image,                   // add the movie image
                 overview: movie.overview,       // add the movie details
                 ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists. The spread operator (...) expands an object only if the condition is met.
+                ...(listType === "watched" && {rating: "Not rated yet"}),        // adds rating option in the "watched" list
                 addedAt: new Date(),            // add the date the movie was added
             })
             alert(`${movie.title} added to ${listType}!`);
@@ -100,6 +101,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
             image: movie.image,
             overview: movie.overview,
             ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists. The spread operator (...) expands an object only if the condition is met.
+            ...(typeof movie.rating === "number" && {rating: movie.rating}), // will transfer rating into "to watch" list only for movies with rating
             addedAt: new Date(),
             rewatching: true, // Mark as rewatching
             });
@@ -118,7 +120,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
         const q = getMovieQuery(watchedCollection, movie);                  //query() is used to search Firestore.
         const querySnapshot = await getDocs(q);                                                     //getDocs(q) runs the query and returns documents that match the query
 
-        // if we are rewatching movie, we just delete it without moving to watched
+        // if the movie is already in the watchlist, we just delete it without moving to watched
         if (!querySnapshot.empty) {
             await removeMovie(e, "watchlist", movie.id);
             return;
@@ -131,6 +133,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
                 image: movie.image,
                 overview: movie.overview,
                 ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists. The spread operator (...) expands an object only if the condition is met.
+                ...(movie.rating ? {rating: movie.rating} : {rating: "Not rated yet"}),        // adds rating option in the "watched" list
                 addedAt: new Date(),
             });
             alert("Movie moved to watched!");
