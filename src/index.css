@@ -121,6 +121,7 @@ h1 a {
 }
 
 
+
 /* -------------------------------------  Search styles --------------------------------------- */
 .movie-container {
   font-family: Arial, sans-serif;
@@ -186,6 +187,20 @@ h1 a {
 .input-container input {
   width: 50%;
 }
+
+.password-hint {
+  font-size: '0.9em';
+  color: 'gray'
+}
+
+.show-password {
+  width: 50%;
+}
+
+.show-password input {
+  width: 10%;
+}
+
 
 /* ------------------- Fun stuff to try out --------------------- */
 
