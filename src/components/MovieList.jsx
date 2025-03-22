@@ -20,7 +20,6 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
                     key={movie.id}
                     className="movie-item"
                     onClick={ () => onMovieSelect(movie)}
-                    style={{ cursor: "pointer" }}
                 >
         
                     {/* If movie.image exists, it means the movie was saved from Firestore → Use movie.image. */}
@@ -33,7 +32,7 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
                     {/* Show "Rewatching" label and rating if the movie is being rewatched and rated */}
                     { movie.rewatching && (
                         <>
-                            <span style={{ color: "orange", fontWeight: "bold" }}>Rewatching</span>
+                            <span className="rewatching-label">Rewatching</span>
                             {movie.rating && (<span>{movie.rating} ★</span>)}
                         </>
                     )}
