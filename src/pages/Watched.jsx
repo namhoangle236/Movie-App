@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { collection, getDocs} from "firebase/firestore";
 import MovieList from "../components/MovieList";
 import MovieCard from "../components/MovieCard";
+import MovieNote from "../components/MovieNote";
 
 
 export default function Watched() {
@@ -32,20 +33,27 @@ export default function Watched() {
         <div className="movie-container">
             <h2>My Watched Movies</h2>
             {selectedMovie ? (
-                <MovieCard 
-                    movie={selectedMovie} 
-                    onBack={() => setSelectedMovie(null)}
-                    movies={moviesFirebase}
-                    onMovieSelect={setSelectedMovie}
-                    setMoviesFirebase = {setMoviesFirebase}
-                />
+                <div>
+                    <MovieCard 
+                        movie={selectedMovie} 
+                        onBack={() => setSelectedMovie(null)}
+                        movies={moviesFirebase}
+                        onMovieSelect={setSelectedMovie}
+                        setMoviesFirebase={setMoviesFirebase}
+                    />
+                    <MovieNote
+                        movie={selectedMovie}
+                        listType="watched"
+                        userId={currentUser.uid}
+                    />
+                </div>
             ) : (
                 <MovieList 
                     movies={moviesFirebase}
                     onMovieSelect={setSelectedMovie}
-                    setMoviesFirebase = {setMoviesFirebase}
+                    setMoviesFirebase={setMoviesFirebase}
                 />
             )}
         </div>
-    )
+    ) 
 }
