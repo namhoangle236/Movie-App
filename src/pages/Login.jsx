@@ -47,7 +47,7 @@ const Login = () => {
       <h2>Login</h2>
 
       {error && (                                    // Only display error if there's one; same as --> error ? <div>{error}</div> : null
-        <div style={{ color: 'red' }}>{error}</div>
+        <div className='error-message'>{error}</div>
       )}
 
       <form onSubmit={handleSubmit}>

@@ -154,6 +154,7 @@ h1 a {
   margin: 0;
   max-height: 300px;                  /* limit the height of the list */
   overflow-y: auto;                   /* so that there's a scrollbar when the list is too long (based on max-height)*/
+  cursor: pointer;
 }
 
 .movie-item {
@@ -188,9 +189,12 @@ h1 a {
   width: 50%;
 }
 
-.password-hint {
-  font-size: '0.9em';
-  color: 'gray'
+.error-message {
+  color: red;
+}
+
+.show-password label {
+  color: gray
 }
 
 .show-password {
@@ -199,6 +203,28 @@ h1 a {
 
 .show-password input {
   width: 10%;
+}
+
+.password-checklist {
+  font-size: 0.9em;
+  color: gray;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.check-pass {
+  color: green;
+}
+
+.check-fail {
+  color: red;
+}
+
+
+/* ------------------- MovieList --------------------- */
+.rewatching-label {
+  color: orange;
+  font-weight: 700; 
 }
 
 

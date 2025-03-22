@@ -61,7 +61,7 @@ export default function Register () {
       <h2>Register</h2>
 
       {error && (                                    // Only display error if there's one; same as --> error ? <div>{error}</div> : null
-        <div style={{ color: 'red' }}>{error}</div>
+        <div className='error-message'>{error}</div>
       )}
 
       <form onSubmit={handleSubmit}>
@@ -111,17 +111,17 @@ export default function Register () {
 
 
         { showChecklist && (  
-            <ul style={{ fontSize: '0.9em', color: 'gray', listStyleType: 'none', paddingLeft: 0 }}>
-              <li style={{ color: passwordChecks.length ? 'green' : 'red' }}>
+            <ul className="password-checklist">
+              <li className={passwordChecks.length ? 'check-pass' : 'check-fail' }>
                 {passwordChecks.length ? '✔️' : '❌'} At least 8 characters
               </li>
-              <li style={{ color: passwordChecks.hasNumber ? 'green' : 'red' }}>
+              <li className={passwordChecks.hasNumber ? 'check-pass' : 'check-fail' }>
                 {passwordChecks.hasNumber ? '✔️' : '❌'} Contains a number
               </li>
-              <li style={{ color: passwordChecks.hasUpper ? 'green' : 'red' }}>
+              <li className={passwordChecks.hasUpper ? 'check-pass' : 'check-fail' }>
                 {passwordChecks.hasUpper ? '✔️' : '❌'} Contains an uppercase letter
               </li>
-              <li style={{ color: passwordChecks.hasSymbol ? 'green' : 'red' }}>
+              <li className={passwordChecks.hasSymbol ? 'check-pass' : 'check-fail' }>
                 {passwordChecks.hasSymbol ? '✔️' : '❌'} Contains a symbol
               </li>
             </ul>
