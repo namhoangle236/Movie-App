@@ -7,20 +7,20 @@ import MovieActionButton from "./MovieActionButton";
 
 const MovieCard = ({ movie, onBack, movies, setMoviesFirebase }) => {
                                                
-  // Handle browser back button inside MovieCard
-  useEffect(() => {
-    window.history.pushState(null, "", window.location.href);       // Push a new state into history when the MovieCard opens; window.history.pushState(state, title, url)
+  // // Handle browser back button inside MovieCard
+  // useEffect(() => {
+  //   window.history.pushState(null, "", window.location.href);       // Push a new state into history when the MovieCard opens; window.history.pushState(state, title, url)
 
-    const handleBackButton = () => {
-      onBack();                                                     // Call the function that was passed as a prop (closes MovieCard)
-    };
+  //   const handleBackButton = () => {
+  //     onBack();                                                     // Call the function that was passed as a prop (closes MovieCard)
+  //   };
 
-    window.addEventListener("popstate", handleBackButton);          // popstate is triggered when the user navigates back or forward in the browser's history stack
+  //   window.addEventListener("popstate", handleBackButton);          // popstate is triggered when the user navigates back or forward in the browser's history stack
 
-    return () => {
-      window.removeEventListener("popstate", handleBackButton);     // cleans up the event listener when the component unmounts (removed from the page).
-    };
-  }, []);                                                           // Only runs when MovieCard mounts/unmounts
+  //   return () => {
+  //     window.removeEventListener("popstate", handleBackButton);     // cleans up the event listener when the component unmounts (removed from the page).
+  //   };
+  // }, []);                                                           // Only runs when MovieCard mounts/unmounts
 
   return (
     <div>
