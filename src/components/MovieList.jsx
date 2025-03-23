@@ -21,9 +21,15 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
                     className="movie-item"
                     onClick={ () => onMovieSelect(movie)}
                 >
-        
-                    {/* If movie.image exists, it means the movie was saved from Firestore → Use movie.image. */}
-                    <img src={movie.image || `https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={'Movie poster of ' + movie.title} />
+                    {/* If movie.image exists, it means the movie was displayed from Firestore → Use movie.image.
+                        If there is no poster in API, show a placeholder image */}
+                    <img src={
+                        movie.image ? 
+                        movie.image : movie.poster_path ? 
+                        `https://image.tmdb.org/t/p/w200${movie.poster_path}` : '/no-poster-available.png' // fallback placeholder
+                    } 
+                        alt={'Movie poster of ' + movie.title} 
+                    />
                     
                     <p>{movie.title}</p>
 
