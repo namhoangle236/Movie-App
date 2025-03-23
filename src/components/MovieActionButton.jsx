@@ -38,7 +38,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
         const q = getMovieQuery(movieRef, movie);
     
 
-        const image = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+        const image = movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : 'https://i.postimg.cc/T39WjRjr/no-poster-available.png';
 
         try {
             const querySnapshot = await getDocs(q); // send the query to see if the movie already exists
@@ -168,7 +168,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
             {location.pathname.includes("watched") && (
                 <>  
                     <button className='add-btn' onClick={ (e) => moveToWatchlist(e, movie)}>
-                        Watchlist
+                        Rewatch
                     </button>
                     <button className='add-btn' onClick={ (e) => removeMovie(e, "watched", movie.id)}>
                         Remove
