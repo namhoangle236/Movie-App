@@ -38,7 +38,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
         const q = getMovieQuery(movieRef, movie);
     
 
-        const image = movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : 'https://i.postimg.cc/T39WjRjr/no-poster-available.png';
+        const image = movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : 'https://i.postimg.cc/W3DSz9Fq/no-poster-available.png';
 
         try {
             const querySnapshot = await getDocs(q); // send the query to see if the movie already exists
