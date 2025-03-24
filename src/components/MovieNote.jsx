@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
 
-const MovieNote = ({ movie, listType, userId }) => {
+const MovieNote = ({ movie, userId }) => {
     const [note, setNote] = useState(movie.note || "");                         // Use existing note if available
     const [isSaved, setIsSaved] = useState(true);                               // Track if note is saved
+    const maxChars = 200;
 
     const handleChange = (e) => {
         setNote(e.target.value);                                                // value of the textarea input
@@ -13,7 +14,7 @@ const MovieNote = ({ movie, listType, userId }) => {
 
     const handleSaveNote = async () => {
         try {
-            const movieRef = doc(db, "users", userId, listType, movie.id);      // Reference to the movie document in Firestore
+            const movieRef = doc(db, "users", userId, "watched" , movie.id);      // Reference to the movie document in Firestore
             await setDoc(movieRef, { note: note }, { merge: true });            // Update the 'note' field
             setIsSaved(true);                                                   // Mark as saved after updating Firebase
         } catch (error) {
@@ -29,9 +30,14 @@ const MovieNote = ({ movie, listType, userId }) => {
                 value={note}
                 onChange={handleChange}
                 placeholder="My thought on the movie..."
-                rows="3"
+                rows="2"
                 cols="30"
+                maxLength={200}
             />
+
+            <div style={{ fontSize: "0.9em", color: note.length >= maxChars ? "red" : "gray" }}>
+                {note.length} / {maxChars} characters
+            </div>
 
             {/* if isSaved is true, the button will be disabled */}
             <button onClick={handleSaveNote} disabled={isSaved}>
