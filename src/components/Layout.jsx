@@ -1,11 +1,14 @@
 import { useAuth } from '../context/AuthContext';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';// Layout Component
+import { useState } from 'react';
+
 
 
 export default function Layout() {
     const { currentUser, logout} = useAuth();
     const navigate = useNavigate();
-    const location = useLocation();     // get the current route
+    const location = useLocation();                     // get the current route
+    const [menuOpen, setMenuOpen] = useState(false);    // state to toggle the nav menu when click on
 
     async function handleLogout() {
         try {
@@ -22,10 +25,20 @@ export default function Layout() {
 
     return (
         <>
+            <video className="video-bg" autoPlay loop muted>
+                <source src="/background-vid.mp4" type="video/mp4" />              
+            </video>
+
             <header>
-                <h1><a href="/">Movie Tracker</a></h1>
+                <h1><a href="/">Moovie Track</a></h1>
                 <nav>
-                    <ul>
+                    {/* this button is hidden, only display after breakpoint */}
+                    <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
+                        ☰
+                    </button>
+
+                    {/* ul will add a class of "show-menu" when the menu is open, changing the display of <li> */}
+                    <ul className={`nav-list ${menuOpen ? "show-menu" : ""}`}>
                         {isLoginPage ? ( // if on login page, show only search link to come back
                             <li><Link to="/">Search</Link></li>
                         ) : (

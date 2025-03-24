@@ -13,6 +13,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
 .active {
   font-weight: 700;
   color: orange;
@@ -90,11 +100,11 @@ nav ul li {
 nav ul li a,
 nav ul li button {
   text-decoration: none; /* Remove underline */
-  color: white;
-  background: none;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
+  color: #ffffff;
+  text-shadow: 0 0 50px #fc5656, 0 0 20px #ff0000;
+  text-align: center;
+  font-size: 21px;
+  font-weight: bold;
 }
 
 nav ul li button {
@@ -123,18 +133,36 @@ h1 a {
 
 
 /* -------------------------------------  Search styles --------------------------------------- */
+
+
+/* .tv-movie-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+
+
+
 .movie-container {
   font-family: Arial, sans-serif;
   width: 50vw;
   margin: 20px auto;
   padding: 20px;
-  background-color: #444343;
+  /* background-color: #ffd2ad; */
+  background-image:
+    url('/bg-collage.jpg'),
+    linear-gradient(to bottom right, rgb(249, 237, 144), rgb(241, 157, 230));
+  background-size: cover;
+  background-blend-mode: multiply;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+
+
 .movie-container h2 {
-  color: #e1e1e1;
+  color: #ffffff;
+  text-shadow: 0 0 10px #ff3e29;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -177,6 +205,68 @@ h1 a {
   font-size: 1.1em;
   color: #333;
 }
+
+
+/* Menu button (hidden on large screen) */
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* Mobile View */
+@media (max-width: 872px) {
+  .movie-container {
+    width: 90%;
+    text-align: center;
+  }
+
+  /* change nav to menu button */
+  .menu-btn {
+    display: block; /* Show menu button */
+    position: absolute;
+    top: 10px;
+    right: 15px;
+  }
+
+  .nav-list {
+    display: none; /* Hide navigation links */
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    width: 200px;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .nav-list.show-menu {
+    display: block; /* Show menu when toggled */
+  }
+
+  .nav-list li {
+    display: block;
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .nav-list a
+   {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    background: none;
+    border: none;
+    font-size: 18px;
+  }
+}
+
+
+
 
 /* ------------------- Login/Register styles --------------------- */
 .input-container {

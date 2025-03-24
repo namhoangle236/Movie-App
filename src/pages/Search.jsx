@@ -81,8 +81,8 @@ const Search = () => {
   // ------------------------------------------------------
 
   return (
-    <>
-      <TVDisplay />
+    <div className="tv-movie-wrapper">
+      
       <div className="movie-container">
         <h2>Movie Search</h2>
         <input
@@ -97,9 +97,12 @@ const Search = () => {
           <MovieList movies={movies} onMovieSelect={handleMovieSelect} />
         )}
       </div>
-    </>
+
+      <TVDisplay />
+      
+    </div>
   );
-};
+}
 
 export default Search;
 
