@@ -28,7 +28,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
         e.stopPropagation();             // Prevents clicking the <li>
 
         if (!currentUser) {
-            navigate('login');
+            navigate('login', { state: { from: location } });
             return;
         }
 
@@ -38,7 +38,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
         const q = getMovieQuery(movieRef, movie);
     
 
-        const image = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+        const image = movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : 'https://i.postimg.cc/W3DSz9Fq/no-poster-available.png';
 
         try {
             const querySnapshot = await getDocs(q); // send the query to see if the movie already exists
@@ -54,7 +54,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
                 image: image,                   // add the movie image
                 overview: movie.overview,       // add the movie details
                 ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists. The spread operator (...) expands an object only if the condition is met.
-                ...(listType === "watched" && {rating: "Not rated yet"}),        // adds rating option in the "watched" list
+                ...(listType === "watched" && {rating: "Not rated yet", note: null}),        // adds rating option in the "watched" list
                 addedAt: new Date(),            // add the date the movie was added
             })
             alert(`${movie.title} added to ${listType}!`);
@@ -102,6 +102,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
             overview: movie.overview,
             ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists. The spread operator (...) expands an object only if the condition is met.
             ...(typeof movie.rating === "number" && {rating: movie.rating}), // will transfer rating into "to watch" list only for movies with rating
+            ...(movie.note && {note: movie.note}),                           // will transfer note into "to watch" list only for movies with notes
             addedAt: new Date(),
             rewatching: true, // Mark as rewatching
             });
@@ -134,6 +135,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
                 overview: movie.overview,
                 ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists. The spread operator (...) expands an object only if the condition is met.
                 ...(movie.rating ? {rating: movie.rating} : {rating: "Not rated yet"}),        // adds rating option in the "watched" list
+                ...(movie.note && {note: movie.note}),                           // will transfer note into "to watch" list only for movies with notes
                 addedAt: new Date(),
             });
             alert("Movie moved to watched!");
@@ -168,7 +170,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
             {location.pathname.includes("watched") && (
                 <>  
                     <button className='add-btn' onClick={ (e) => moveToWatchlist(e, movie)}>
-                        Watchlist
+                        Rewatch
                     </button>
                     <button className='add-btn' onClick={ (e) => removeMovie(e, "watched", movie.id)}>
                         Remove

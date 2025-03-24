@@ -12,17 +12,20 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // If the user was redirected to login from a protected page, go back to the last non-protected page; otherwise, go to /
-  const from = location.state?.from?.pathname || "/";
+  // If the user was redirected to login because of trying to access a protected page when not logged in, go back to the last non-protected page; otherwise, go to /
+  const from = location.state?.from
+    ? location.state.from.pathname + (location.state.from.search || "") 
+    : "/";
 
 
   // Prevent logged-in user from accessing the login page
   useEffect(() => {
     if (currentUser) {
-      //console.log("Current User:", currentUser);    // Debugging log
-      navigate("/", { replace: true });             // Redirect to home immediately ; replace: true removes the prevoius page from the browser history
+      console.log("Current User:", currentUser);    // Debugging log
+      navigate(from, { replace: true });             // Redirect to home immediately ; replace: true removes the prevoius page from the browser history
     }
   }, [currentUser, navigate]);
+  
                   
 
   // On submit login credentials

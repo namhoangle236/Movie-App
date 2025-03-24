@@ -317,6 +317,20 @@ h1 a {
   font-weight: 700; 
 }
 
+.note {
+  font-size: 0.9em; 
+  color: grey
+}
+
+/* ------------------- MovieCard --------------------- */
+.movie-card img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  margin-right: 15px;
+  border-radius: 4px;
+}
+
 
 /* ------------------- Fun stuff to try out --------------------- */
 

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { collection, getDocs} from "firebase/firestore";
+import { useSearchParams } from 'react-router-dom';
 import MovieList from "../components/MovieList";
 import MovieCard from "../components/MovieCard";
 
 
 export default function Watchlist() {
     const { currentUser} = useAuth();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [moviesFirebase, setMoviesFirebase] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
 
@@ -32,21 +34,42 @@ export default function Watchlist() {
         fetchWatchList();
     }, [currentUser]);          // runs on first component load and every time currentUser changes
 
+    const handleMovieSelect = (movie) => {
+        setSelectedMovie(movie);
+        setSearchParams({ movie: movie.id });
+    };
+
+    const handleBack = () => {
+        setSelectedMovie(null);
+        setSearchParams({});
+    };
+
+    useEffect(() => {
+        const movieId = searchParams.get('movie');
+        if (movieId) {
+            const foundMovie = moviesFirebase.find(movie => movie.id === movieId);
+            if (foundMovie) {
+                setSelectedMovie(foundMovie);
+            }
+        } else {
+            setSelectedMovie(null);
+        }
+    }, [moviesFirebase, searchParams]);    
+
     return (
         <div className='movie-container'>
             <h2>My Watchlist</h2>
             {selectedMovie ? (
                 <MovieCard 
                 movie={selectedMovie} 
-                onBack={() => setSelectedMovie(null)}
+                onBack={handleBack}
                 movies={moviesFirebase}
-                onMovieSelect={setSelectedMovie}
                 setMoviesFirebase = {setMoviesFirebase}
                 />            
             ) : (
                 <MovieList 
                     movies={moviesFirebase}
-                    onMovieSelect={setSelectedMovie}
+                    onMovieSelect={handleMovieSelect}
                     setMoviesFirebase = {setMoviesFirebase}
                 />
             )}
