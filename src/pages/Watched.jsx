@@ -68,11 +68,6 @@ export default function Watched() {
                         movies={moviesFirebase}
                         setMoviesFirebase={setMoviesFirebase}
                     />
-                    <MovieNote
-                        movie={selectedMovie}
-                        listType="watched"
-                        userId={currentUser.uid}
-                    />
                 </div>
             ) : (
                 <MovieList 

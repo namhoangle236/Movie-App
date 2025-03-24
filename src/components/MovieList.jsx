@@ -3,6 +3,7 @@ import MovieActionButton from "./MovieActionButton";
 import {useLocation} from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 import StarRating from "../components/StarRating";
+import MovieNote from "./MovieNote";
 
 
 export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) {
@@ -26,7 +27,7 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
                     <img src={
                         movie.image ? 
                         movie.image : movie.poster_path ? 
-                        `https://image.tmdb.org/t/p/w200${movie.poster_path}` : '/no-poster-available.png' // fallback placeholder
+                        `https://image.tmdb.org/t/p/w200${movie.poster_path}` : 'https://i.postimg.cc/W3DSz9Fq/no-poster-available.png' // fallback placeholder
                     } 
                         alt={'Movie poster of ' + movie.title} 
                     />
@@ -40,6 +41,7 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
                         <>
                             <span className="rewatching-label">Rewatching</span>
                             {movie.rating && (<span>{movie.rating} ★</span>)}
+                            {movie.note && (<p>My note: {movie.note}</p>)}
                         </>
                     )}
 
@@ -47,8 +49,12 @@ export default function MovieList ({ movies, onMovieSelect, setMoviesFirebase}) 
                     
                     {/* User can put rating to movies in his "watched" list */}
                     {location.pathname.includes("watched") && (
-                        /* Star Rating Component */
-                        <StarRating movie={movie} userId={currentUser.uid} />
+                        <>
+                            {/* Star Rating Component */}
+                            <StarRating movie={movie} userId={currentUser.uid} />
+                            {/* Note option */}
+                            <MovieNote movie={movie} userId={currentUser.uid} />
+                        </>
                     )}
                 </li>
             ))}
