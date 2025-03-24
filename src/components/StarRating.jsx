@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { db } from "../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDocs, collection, query, where } from "firebase/firestore";
 
 const StarRating = ({ movie, userId }) => {
     const [rating, setRating] = useState(movie.rating || 0);    // If movie.rating exists in user db, use it, otherwise use 0
@@ -11,8 +11,22 @@ const StarRating = ({ movie, userId }) => {
         setRating(newRating);
 
         try {
-            const movieRef = doc(db, "users", userId, "watched", movie.id);
-            await setDoc(movieRef, { rating: newRating }, { merge: true });
+            const movieRefWatched = doc(db, "users", userId, "watched", movie.id);
+            await setDoc(movieRefWatched, { rating: newRating }, { merge: true });
+
+            // Check if the same movie exists in "watchlist"
+            // Query the watchlist for a movie with same title and release_date
+            const watchlistRef = collection(db, "users", userId, "watchlist");                          //  the reference to the user’s watchlist collection.
+            const q = query(watchlistRef,                                                               // creates a search query to find a movie in your "watchlist" collection
+                where ("title", "==", movie.title),                                                     // only look at movies with the same title
+                ...(movie.release_date ? [where("release_date", "==", movie.release_date)] : [])        // This means: "Also filter by release date only if it exists."
+                );
+                const querySnapshot = await getDocs(q);
+            // const movieRefWatchlist = doc(db, "users", userId, "watchlist", movie.id);
+            // const querySnapshot = await getDoc(movieRefWatchlist);
+            if (!querySnapshot.empty) {
+                await setDoc(querySnapshot.docs[0].ref, { rating: newRating }, { merge: true });         // querySnapshot.docs: this is an array of all matching Firestore documents. the document reference — tells Firestore exactly which doc to update.
+            }
         } catch (error) {
             console.error("Error updating rating:", error);
         }

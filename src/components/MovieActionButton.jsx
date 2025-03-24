@@ -135,6 +135,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
                 overview: movie.overview,
                 ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists. The spread operator (...) expands an object only if the condition is met.
                 ...(movie.rating ? {rating: movie.rating} : {rating: "Not rated yet"}),        // adds rating option in the "watched" list
+                ...(movie.note && {note: movie.note}),                           // will transfer note into "to watch" list only for movies with notes
                 addedAt: new Date(),
             });
             alert("Movie moved to watched!");
