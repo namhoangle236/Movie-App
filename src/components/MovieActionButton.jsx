@@ -28,7 +28,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
         e.stopPropagation();             // Prevents clicking the <li>
 
         if (!currentUser) {
-            navigate('login');
+            navigate('/login', { state: { from: location } });
             return;
         }
 
