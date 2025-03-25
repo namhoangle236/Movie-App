@@ -187,6 +187,28 @@ button:hover {
 /* Mobile View */
 @media (max-width: 872px) {
 
+  header {
+  padding: 5px 10px;
+  justify-content: space-around;
+  }
+
+  .movie-track-header-container {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+  
+  .movie-track-logo {
+    max-height: 60px;
+    margin: 0;
+  }
+  
+  h1 {
+    font-size: 1.6rem;
+    margin: 8px 0;
+    text-align: center;
+  }
+
   /* change nav to menu button */
   .menu-btn {
     display: block; /* Show menu button */
@@ -553,6 +575,7 @@ button:hover {
     flex-direction: column;
     padding: 16px;
     margin: 2.5px;
+    margin-bottom: 10px;
   } 
   
   .movie-poster {
@@ -575,7 +598,7 @@ button:hover {
   .movie-note,
   .movie-rating,
   .movie-rating-edit,
-  .movie-iten .movie-button-1,
+  .movie-item .movie-button-1,
   .movie-item .movie-button-2 {
     grid-column: auto;
     grid-row: auto;
@@ -602,9 +625,10 @@ button:hover {
     margin-top: 25px;
   }
 
-  .movie-item button {
+  .movie-item .movie-button-1,
+  .movie-item .movie-button-2 {
     font-size: 1rem;
-    width: 40%;
+    width: 60%;
     margin: 5px auto;
   }
 }
