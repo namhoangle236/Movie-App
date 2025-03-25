@@ -39,7 +39,7 @@ const MovieNote = ({ movie, userId }) => {
     };
 
     return (
-        <div onClick={(e) => e.stopPropagation()}>
+        <div className="movie-note-edit" onClick={(e) => e.stopPropagation()}>
             <label htmlFor="movie-note">My Note:</label>
             <textarea
                 id="movie-note"
@@ -50,15 +50,16 @@ const MovieNote = ({ movie, userId }) => {
                 cols="30"
                 maxLength={200}
             />
+            <div className="note-footer">
+                <div className="char-count" style={{ color: note.length >= maxChars ? "red" : "gray" }}>
+                    {note.length} / {maxChars} characters
+                </div>
 
-            <div style={{ fontSize: "0.9em", color: note.length >= maxChars ? "red" : "gray" }}>
-                {note.length} / {maxChars} characters
+                {/* if isSaved is true, the button will be disabled */}
+                <button onClick={handleSaveNote} disabled={isSaved}>
+                    {isSaved ? "Saved" : "Save Note"}
+                </button>
             </div>
-
-            {/* if isSaved is true, the button will be disabled */}
-            <button onClick={handleSaveNote} disabled={isSaved}>
-                {isSaved ? "Saved" : "Save Note"}
-            </button>
         </div>
     );
 };

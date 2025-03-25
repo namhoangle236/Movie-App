@@ -1,3 +1,9 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -84,11 +90,23 @@ button:focus-visible {
   }
 }
 
-/* --------------------------------------  NAV styles ----------------------------------------- */
+/* --------------------------------------  Header styles ----------------------------------------- */
+header {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center-align text */
+}
+
+h1 a {
+  text-decoration: none;
+  color: white;
+}
+
 nav ul {
   list-style: none; /* Remove bullet points */
   padding: 0;
-  margin: 0;
+  margin: 20px 0;
   display: flex; /* Display items in a row */
   gap: 20px; /* Add space between links */
 }
@@ -118,95 +136,6 @@ nav ul li button:hover {
   background-color: darkred;
 }
 
-header {
-  display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  align-items: center; /* Center-align text */
-}
-
-
-h1 a {
-  text-decoration: none;
-  color: white;
-}
-
-
-
-/* -------------------------------------  Search styles --------------------------------------- */
-
-
-/* .tv-movie-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
-
-
-
-.movie-container {
-  font-family: Arial, sans-serif;
-  width: 50vw;
-  margin: 20px auto;
-  padding: 20px;
-  /* background-color: #ffd2ad; */
-  background-image:
-    url('/bg-collage.jpg'),
-    linear-gradient(to bottom right, rgb(249, 237, 144), rgb(241, 157, 230));
-  background-size: cover;
-  background-blend-mode: multiply;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-
-
-.movie-container h2 {
-  color: #ffffff;
-  text-shadow: 0 0 10px #ff3e29;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.movie-container input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.movie-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  max-height: 300px;                  /* limit the height of the list */
-  overflow-y: auto;                   /* so that there's a scrollbar when the list is too long (based on max-height)*/
-  cursor: pointer;
-}
-
-.movie-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #eee;    /* line to separate each movie */
-  padding-bottom: 15px;
-}
-
-.movie-item img {
-  width: 100px;
-  height: 150px;
-  object-fit: cover;
-  margin-right: 15px;
-  border-radius: 4px;
-}
-
-.movie-item span {
-  font-size: 1.1em;
-  color: #333;
-}
-
-
 /* Menu button (hidden on large screen) */
 .menu-btn {
   display: none;
@@ -219,10 +148,6 @@ h1 a {
 
 /* Mobile View */
 @media (max-width: 872px) {
-  .movie-container {
-    width: 90%;
-    text-align: center;
-  }
 
   /* change nav to menu button */
   .menu-btn {
@@ -262,6 +187,88 @@ h1 a {
     background: none;
     border: none;
     font-size: 18px;
+  }
+}
+
+
+
+
+/* -------------------------------------  Movie Conatiner styles --------------------------------------- */
+
+
+/* .tv-movie-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+
+.movie-container {
+  font-family: Arial, sans-serif;
+  width: 90%;
+  max-width: 1000px;
+  margin: 15px auto;
+  padding: 30px 20px;
+  background-image:
+    url('/bg-collage.jpg'),
+    linear-gradient(to bottom right, rgb(249, 237, 144), rgb(241, 157, 230));
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.movie-container h2 {
+  font-size: 3rem;
+  color: #6a3e0d;
+  text-shadow: 0 0 8px #ffd1a1;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.movie-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.movie-container button {
+  max-width: 350px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff8e1;
+  background: linear-gradient(135deg, #f9a825, #f57f17);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  box-shadow: 0 4px 6px rgba(255, 193, 7, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.movie-container button:hover {
+  background: linear-gradient(135deg, #f6c90e, #f9a825);
+  transform: scale(1.05);
+}
+
+.movie-container button:focus {
+  outline: 3px solid #fff3cd;
+  outline-offset: 2px;
+}
+
+/* Mobile View */
+@media (max-width: 872px) {
+  .movie-container {
+    width: 90%;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .movie-container h2 {
+    font-size: 1.8rem;
   }
 }
 
@@ -312,14 +319,250 @@ h1 a {
 
 
 /* ------------------- MovieList --------------------- */
-.rewatching-label {
-  color: orange;
-  font-weight: 700; 
+.movie-list {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  max-height: 500px;                  /* limit the height of the list */
+  overflow-y: auto;                   /* so that there's a scrollbar when the list is too long (based on max-height)*/
+  scroll-behavior: smooth;
+  cursor: pointer;
 }
 
-.note {
-  font-size: 0.9em; 
-  color: grey
+.movie-item {
+  min-height: 400px;
+  background-color: rgba(232, 226, 229, 0.6);
+  border-radius: 8px;
+  margin: 15px 20px;
+  border-bottom: 1px solid #eee;    /* line to separate each movie */
+  display: grid;
+  grid-template-columns: 3fr 2fr 2fr 1.5fr;
+  grid-template-rows: repeat(5, auto);;      /* 5 equal rows */
+  align-items: center;
+  gap: 10px 20px;
+  padding: 10px 20px;
+}
+
+.movie-poster {
+  grid-column: 1 / 2;
+  grid-row: 1 / 6;
+  max-width: 100%;
+  border-radius: 6px;
+  justify-self: center;
+}
+
+.movie-title {
+  grid-column: 2 / 4;
+  grid-row: 1;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4a2c2a;
+  text-shadow: 1px 1px 3px white;
+}
+
+.movie-year {
+  grid-column: 2 / 3;
+  grid-row: 2;
+  font-size: 1.3rem;
+  color: #5f4b4b;
+  align-self: start;
+}
+
+.movie-rating {
+  grid-column: 4;
+  grid-row: 1;
+  font-size: 2rem;
+  color: gold;
+  text-shadow: 1px 1px 4px black;
+  justify-self: end;
+  align-self: end;
+}
+
+.rewatching-label {
+  grid-column: 4;
+  grid-row: 2;
+  font-size: 1.2rem;
+  color: orangered;
+  text-shadow: 1px 1px 3px white;
+  font-weight: bold;
+  align-self: start;
+  justify-self: end;
+}
+
+.movie-note {
+  grid-column: 2 / 5;
+  grid-row: 4;
+  font-size: 1.1rem;
+  color: #6b4e4e;
+}
+
+.movie-item .movie-button-1 {
+  grid-column: 2;
+  grid-row: 5;
+  align-self: start;
+  justify-self: end;
+}
+
+.movie-item .movie-button-2 {
+  grid-column: 3;
+  grid-row: 5;
+  align-self: start;
+  justify-self: end;
+}
+
+.movie-rating-edit {
+  grid-column: 2;
+  grid-row: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align contents to the left */
+  gap: 4px;
+  font-size: 1rem;
+  color: #4a2c2a;
+  margin-right: 10px;
+}
+
+.movie-rating-edit label {
+  font-weight: bold;
+}
+
+.movie-rating-edit input[type="range"] {
+  width: 100%;
+  accent-color: #f9a825;
+  cursor: pointer;
+}
+
+.movie-rating-edit span {
+  font-weight: bold;
+  color: #5a4400;
+  background-color: #fff6d1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 1rem;
+  align-self: flex-start; /* forces span to align left under slider */
+}
+
+.movie-note-edit {
+  grid-column: 3 / 5;
+  grid-row: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 1.1rem;
+  color: #4a2c2a;
+}
+
+.movie-note-edit label {
+  font-weight: bold;
+}
+
+.movie-note-edit textarea {
+  resize: vertical;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  padding: 6px;
+  font-size: 1rem;
+  background-color: #fdf5e6;
+  color: #333;
+  box-shadow: inset 1px 1px 4px rgba(0,0,0,0.1);
+}
+
+.note-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.char-count {
+  font-size: 0.9em;
+  color: gray;
+}
+
+.note-footer button {
+  font-size: 1rem;
+  padding: 4px 10px;
+  font-weight: 500;
+  color: #333;
+  background: linear-gradient(to bottom, #e0e0e0, #ccc);
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.note-footer button:hover {
+  background: linear-gradient(to bottom, #d6d6d6, #bfbfbf);
+}
+
+.note-footer button:disabled {
+  background: #eee;
+  color: #888;
+  cursor: default;
+}
+
+@media (max-width: 872px) {
+  .movie-item {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    margin: 2.5px;
+  } 
+  
+  .movie-poster {
+    width: 60%;
+    max-width: 200px;
+  }
+
+  .movie-title {
+    font-size: 1.4rem;
+  }
+
+  .rewatching-label,
+  .movie-rating {
+  font-size: 1.1rem;
+  }
+ 
+
+  .movie-title,
+  .movie-year,
+  .movie-note,
+  .movie-rating,
+  .movie-rating-edit,
+  .movie-iten .movie-button-1,
+  .movie-item .movie-button-2 {
+    grid-column: auto;
+    grid-row: auto;
+    width: 100%;
+    text-align: center;
+  }
+
+  .movie-rating-edit,
+  .movie-note-edit {
+    align-items: center;
+  }
+
+  .movie-note-edit {
+    width: 100%;
+    max-width: 100%;
+    grid-column: auto;
+    grid-row: auto;
+    box-sizing: border-box;
+    padding: 0 5px;
+    margin: 25px 10px;
+  }
+  
+  .movie-rating-edit {
+    margin-top: 25px;
+  }
+
+  .movie-item button {
+    font-size: 1rem;
+    width: 40%;
+    margin: 5px auto;
+  }
 }
 
 /* ------------------- MovieCard --------------------- */
