@@ -58,15 +58,49 @@ export default function Layout() {
                     {/* ul will add a class of "show-menu" when the menu is open, changing the display of <li> */}
                     <ul className={`nav-list ${menuOpen ? "show-menu" : ""}`}>
                         {isLoginPage ? ( // if on login page, show only search link to come back
-                            <li><Link to="/">Search</Link></li>
+                            <li><Link to="/" onClick={() => setMenuOpen(false)}>Search</Link></li>
                         ) : (
                             <>
                                 {currentUser ? (
                                     <>
-                                        <li><Link to="/" className={location.pathname === "/" ? "active" : ""}>Search</Link></li>
-                                        <li><Link to={`/watchlist/${currentUser.email}`} className={location.pathname.startsWith(`/watchlist`) ? "active" : ""}>Watchlist</Link></li>           {/* create personalized path depending on user email */}
-                                        <li><Link to={`/watched/${currentUser.email}`} className={location.pathname.startsWith(`/watched`) ? "active" : ""}>Watched</Link></li>
-                                        <li><button onClick={handleLogout} aria-label="Logout from your account">Logout</button></li>
+                                        <li>
+                                            <Link 
+                                                to="/" 
+                                                className={location.pathname === "/" ? "active" : ""}
+                                                onClick={() => setMenuOpen(false)}
+                                            >
+                                                Search
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link 
+                                                to={`/watchlist/${currentUser.email}`} 
+                                                className={location.pathname.startsWith(`/watchlist`) ? "active" : ""}
+                                                onClick={() => setMenuOpen(false)}
+                                            >
+                                                Watchlist
+                                            </Link>
+                                        </li>           {/* create personalized path depending on user email */}
+                                        <li>
+                                            <Link 
+                                                to={`/watched/${currentUser.email}`} 
+                                                className={location.pathname.startsWith(`/watched`) ? "active" : ""}
+                                                onClick={() => setMenuOpen(false)}
+                                            >
+                                                Watched
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <button 
+                                                onClick={ () => {
+                                                    handleLogout();
+                                                    setMenuOpen(false)
+                                                }} 
+                                                aria-label="Logout from your account"
+                                            >
+                                                Logout
+                                            </button>
+                                        </li>
                                     </>
                                 ) : (
                                     <li><Link to="/login">Login</Link></li>              // the only navigation option users sees when not logged in

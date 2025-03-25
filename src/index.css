@@ -50,12 +50,13 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
 
 main {
-  margin-top: 150px;
+  margin-top: 130px;
   flex-grow: 1;
 }
 
@@ -117,7 +118,7 @@ h1 a {
 }
 
 .movie-track-logo {
-  max-height: 100px;                        /* Adjust for logo size */
+  max-height: 90px;                        /* Adjust for logo size */
   margin-right: 5px;                        /* spacing between the image and the heading */
 }
 
@@ -230,6 +231,7 @@ button:hover {
 
   .nav-list.show-menu {
     display: block; /* Show menu when toggled */
+    
   }
 
   .nav-list li {
@@ -242,17 +244,29 @@ button:hover {
    {
     display: block;
     padding: 10px;
-    color: white;
     text-decoration: none;
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 1rem;
+  }
+
+  .nav-list button {
+    font-size: 1rem;
   }
 }
 
+/* -------------------------------------  Seacrh styles --------------------------------------- */
 
+.search-bar {
+  font-size: 1.2rem;
+  background-color: rgba(47, 15, 15, 0.85);
+}
 
-
+@media (max-width: 872px) {
+  .search-bar {
+    font-size: 1rem;
+  }
+}
 /* -------------------------------------  Movie Conatiner styles --------------------------------------- */
 
 
@@ -266,7 +280,7 @@ button:hover {
   font-family: Arial, sans-serif;
   width: 90vw;                /* Always 90% of the viewport width */
   max-width: 1000px;
-  max-height: 525px;          /* about one .movie-item + padding */
+  max-height: 70vh;          /* about one .movie-item + padding */
   overflow-y: auto;
   margin: 15px auto;
   padding: 30px 20px;
@@ -285,7 +299,7 @@ button:hover {
   color: #6a3e0d;
   text-shadow: 0 0 8px #ffd1a1;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .movie-container input {
@@ -326,7 +340,6 @@ button:hover {
 @media (max-width: 872px) {
   .movie-container {
     width: 90%;
-    max-height: none;
     text-align: center;
     padding: 10px;
   }
@@ -378,9 +391,7 @@ button:hover {
   font-size: 1rem;
 }
 
-.auth-container input[type="email"],
-.auth-container input[type="password"],
-.auth-container input[type="text"] {
+.auth-container input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -422,7 +433,7 @@ button:hover {
   color: #ff5555;
 }
 
-.auth-container button[type="submit"] {
+.auth-container button {
   background-color: #f57f17;
   color: white;
   font-size: 1.1rem;
@@ -434,7 +445,7 @@ button:hover {
   transition: background 0.3s ease;
 }
 
-.auth-container button[type="submit"]:hover {
+.auth-container button:hover {
   background-color: #ff9800;
 }
 
@@ -462,7 +473,6 @@ button:hover {
 }
 
 .movie-item {
-  min-height: 300px;
   background-color: rgba(232, 226, 229, 0.6);
   border-radius: 8px;
   margin: 15px 12px;
@@ -488,7 +498,7 @@ button:hover {
 .movie-title {
   grid-column: 2 / 4;
   grid-row: 1;
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #4a2c2a;
   text-shadow: 1px 1px 3px white;
@@ -497,7 +507,7 @@ button:hover {
 .movie-year {
   grid-column: 2 / 3;
   grid-row: 2;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: #5f4b4b;
   align-self: start;
 }
@@ -505,10 +515,10 @@ button:hover {
 .movie-rating {
   grid-column: 4;
   grid-row: 1;
-  font-size: 1.3rem;
+  font-size: 1.7rem;
   color: gold;
   text-shadow: 1px 1px 4px black;
-  justify-self: end;
+  justify-self: center;
   align-self: end;
 }
 
@@ -520,7 +530,7 @@ button:hover {
   text-shadow: 1px 1px 3px white;
   font-weight: bold;
   align-self: start;
-  justify-self: end;
+  justify-self: center;
 }
 
 .movie-note {
@@ -561,7 +571,7 @@ button:hover {
   font-weight: bold;
 }
 
-.movie-rating-edit input[type="range"] {
+.movie-rating-edit input {
   width: 100%;
   accent-color: #f9a825;
   cursor: pointer;
@@ -668,8 +678,8 @@ button:hover {
   .movie-rating-edit,
   .movie-item .movie-button-1,
   .movie-item .movie-button-2 {
-    grid-column: auto;
-    grid-row: auto;
+    /* grid-column: auto;
+    grid-row: auto; */
     width: 100%;
     text-align: center;
   }
@@ -682,8 +692,8 @@ button:hover {
   .movie-note-edit {
     width: 100%;
     max-width: 100%;
-    grid-column: auto;
-    grid-row: auto;
+    /* grid-column: auto;
+    grid-row: auto; */
     box-sizing: border-box;
     padding: 0 5px;
     margin: 25px 10px;
@@ -762,5 +772,3 @@ footer {
   text-align: center;
   border-radius: 10px;
 } */
-
-
