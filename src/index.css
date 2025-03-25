@@ -326,6 +326,7 @@ button:hover {
 @media (max-width: 872px) {
   .movie-container {
     width: 90%;
+    max-height: none;
     text-align: center;
     padding: 10px;
   }
@@ -339,47 +340,114 @@ button:hover {
 
 
 /* ------------------- Login/Register styles --------------------- */
-.input-container {
+
+.auth-container {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 40px 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 450px;
+  margin: 60px auto 30px auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  text-align: left;
+}
+
+.auth-container h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 2rem;
+  color: #ffd700;
+  text-shadow: 0 0 6px #000;
+}
+
+.auth-container form {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 20px;
 }
 
-.input-container input {
-  width: 50%;
+.auth-container .input-container {
+  display: flex;
+  flex-direction: column;
 }
 
-.error-message {
-  color: red;
+.auth-container label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 1rem;
 }
 
-.show-password label {
-  color: gray
+.auth-container input[type="email"],
+.auth-container input[type="password"],
+.auth-container input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #000;
 }
 
-.show-password {
-  width: 50%;
+.auth-container .show-password {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.show-password input {
-  width: 10%;
+.auth-container .error-message {
+  background-color: #ff4f4f;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 0.95rem;
 }
 
-.password-checklist {
-  font-size: 0.9em;
-  color: gray;
-  list-style-type: none;
+.auth-container .password-checklist {
+  font-size: 0.9rem;
+  color: #ccc;
+  list-style: none;
   padding-left: 0;
 }
 
-.check-pass {
-  color: green;
+.auth-container .check-pass {
+  color: #50fa7b;
 }
 
-.check-fail {
-  color: red;
+.auth-container .check-fail {
+  color: #ff5555;
 }
 
+.auth-container button[type="submit"] {
+  background-color: #f57f17;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 10px 0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.auth-container button[type="submit"]:hover {
+  background-color: #ff9800;
+}
+
+.auth-container p {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.95rem;
+}
+
+.auth-container a {
+  color: #ffdf5e;
+  text-decoration: underline;
+}
 
 /* ------------------- MovieList --------------------- */
 .movie-list {
@@ -694,3 +762,5 @@ footer {
   text-align: center;
   border-radius: 10px;
 } */
+
+

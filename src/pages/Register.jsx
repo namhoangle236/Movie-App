@@ -57,7 +57,7 @@ export default function Register () {
   };
 
   return (
-    <div>
+    <div className="auth-container">
       <h2>Register</h2>
 
       {error && (                                    // Only display error if there's one; same as --> error ? <div>{error}</div> : null
