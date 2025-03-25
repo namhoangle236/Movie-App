@@ -13,6 +13,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+/* site background video loop */
 .video-bg {
   position: fixed;
   top: 0;
@@ -47,10 +49,18 @@ body {
   min-height: 100vh;
 }
 
+
+/* site name style */
 h1 {
-  font-size: 3.2em;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 3.5em;
   line-height: 1.1;
+  color: #ffffff;
+  text-shadow: 0 0 10px #ff3e29;
+  text-align: center;
+  margin-bottom: 20px;
 }
+/*------------------*/
 
 button {
   border-radius: 8px;
@@ -65,6 +75,7 @@ button {
 }
 button:hover {
   border-color: #646cff;
+  text-shadow: 0 0 10px #ff3e29;
 }
 button:focus,
 button:focus-visible {
@@ -329,6 +340,20 @@ h1 a {
   object-fit: cover;
   margin-right: 15px;
   border-radius: 4px;
+}
+
+
+
+/* ------------------- site logo style --------------------- */
+
+.movie-track-header-container {
+  display: flex;                            
+  align-items: center;
+}
+
+.movie-track-logo {
+  max-height: 150px;                        /* Adjust for logo size */
+  margin-right: 5px;                        /* spacing between the image and the heading */
 }
 
 

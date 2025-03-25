@@ -30,7 +30,25 @@ export default function Layout() {
             </video>
 
             <header>
-                <h1><a href="/">Moovie Track</a></h1>
+                {/* Logo and site name */}
+
+                {/* logo */}
+                <div className="movie-track-header-container">
+                <a href="/">
+                    <img
+                        src="/site-logo.png"
+                        alt="Movie Track Logo"
+                        className="movie-track-logo"
+                    />
+                </a>
+
+                {/* site name */}
+                <h1>
+                    <a href="/">Moovie Track</a>
+                </h1>
+                </div>
+
+                {/* Navigation */}
                 <nav>
                     {/* this button is hidden, only display after breakpoint */}
                     <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
