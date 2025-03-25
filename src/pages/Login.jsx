@@ -46,7 +46,7 @@ const Login = () => {
 
 
   return (
-    <div>
+    <div className="auth-container">
       <h2>Login</h2>
 
       {error && (                                    // Only display error if there's one; same as --> error ? <div>{error}</div> : null
