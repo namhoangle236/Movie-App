@@ -86,6 +86,7 @@ const Search = () => {
       <div className="movie-container">
         <h2>Movie Search</h2>
         <input
+          className="search-bar"
           type="text"
           placeholder="Search for movies..."
           value={query}
