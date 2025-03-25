@@ -4,6 +4,12 @@
   padding: 0;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -15,10 +21,13 @@
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 /* site background video loop */
 .video-bg {
@@ -45,47 +54,15 @@ a:hover {
   color: #535bf2;
 }
 
+main {
+  margin-top: 150px;
+  flex-grow: 1;
+}
+
 body {
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
-
-
-/* site name style */
-h1 {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-size: 3.5em;
-  line-height: 1.1;
-  color: #ffffff;
-  text-shadow: 0 0 10px #ff3e29;
-  text-align: center;
-  margin-bottom: 20px;
-}
-/*------------------*/
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-  text-shadow: 0 0 10px #ff3e29;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
@@ -103,15 +80,49 @@ button:focus-visible {
 
 /* --------------------------------------  Header styles ----------------------------------------- */
 header {
-  margin-top: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(92, 92, 92, 0.7); /* optional: adds background for readability */
+  backdrop-filter: blur(6px); /* optional: adds nice effect */
+  padding: 10px 0;
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  align-items: center; /* Center-align text */
+  justify-content: space-between;
+  align-items: center;
 }
+
+/* site name style */
+h1 {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 2.5em;
+  line-height: 1.1;
+  color: #ffffff;
+  text-shadow: 0 0 10px #ff3e29;
+  text-align: center;
+  margin-bottom: 20px;
+}
+/*------------------*/
 
 h1 a {
   text-decoration: none;
   color: white;
+}
+
+.movie-track-header-container {
+  display: flex;                            
+  align-items: center;
+  margin-left: 50px;
+}
+
+.movie-track-logo {
+  max-height: 100px;                        /* Adjust for logo size */
+  margin-right: 5px;                        /* spacing between the image and the heading */
+}
+
+nav {
+  margin-right: 50px;
 }
 
 nav ul {
@@ -145,6 +156,22 @@ nav ul li button {
 
 nav ul li button:hover {
   background-color: darkred;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+  text-shadow: 0 0 10px #ff3e29;
 }
 
 /* Menu button (hidden on large screen) */
@@ -215,8 +242,10 @@ nav ul li button:hover {
 
 .movie-container {
   font-family: Arial, sans-serif;
-  width: 90%;
+  width: 90vw;                /* Always 90% of the viewport width */
   max-width: 1000px;
+  max-height: 525px;          /* about one .movie-item + padding */
+  overflow-y: auto;
   margin: 15px auto;
   padding: 30px 20px;
   background-image:
@@ -230,7 +259,7 @@ nav ul li button:hover {
 }
 
 .movie-container h2 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: #6a3e0d;
   text-shadow: 0 0 8px #ffd1a1;
   text-align: center;
@@ -240,7 +269,7 @@ nav ul li button:hover {
 .movie-container input {
   width: 100%;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
@@ -336,29 +365,31 @@ nav ul li button:hover {
   width: 100%;
   padding: 0;
   margin: 0 auto;
-  max-height: 500px;                  /* limit the height of the list */
-  overflow-y: auto;                   /* so that there's a scrollbar when the list is too long (based on max-height)*/
+  /*max-height: 500px;                  /* limit the height of the list */
+  /*overflow-y: auto;                   /* so that there's a scrollbar when the list is too long (based on max-height)*/
   scroll-behavior: smooth;
   cursor: pointer;
 }
 
 .movie-item {
-  min-height: 400px;
+  min-height: 300px;
   background-color: rgba(232, 226, 229, 0.6);
   border-radius: 8px;
-  margin: 15px 20px;
+  margin: 15px 12px;
   border-bottom: 1px solid #eee;    /* line to separate each movie */
   display: grid;
   grid-template-columns: 3fr 2fr 2fr 1.5fr;
-  grid-template-rows: repeat(5, auto);;      /* 5 equal rows */
+  grid-template-rows: repeat(4, auto);
   align-items: center;
-  gap: 10px 20px;
-  padding: 10px 20px;
+  gap: 8px 12px;
+  padding: 6px 12px;
 }
 
 .movie-poster {
+  max-height: 320px;
+  width: auto;
   grid-column: 1 / 2;
-  grid-row: 1 / 6;
+  grid-row: 1 / 5;
   max-width: 100%;
   border-radius: 6px;
   justify-self: center;
@@ -367,7 +398,7 @@ nav ul li button:hover {
 .movie-title {
   grid-column: 2 / 4;
   grid-row: 1;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: #4a2c2a;
   text-shadow: 1px 1px 3px white;
@@ -376,7 +407,7 @@ nav ul li button:hover {
 .movie-year {
   grid-column: 2 / 3;
   grid-row: 2;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #5f4b4b;
   align-self: start;
 }
@@ -384,7 +415,7 @@ nav ul li button:hover {
 .movie-rating {
   grid-column: 4;
   grid-row: 1;
-  font-size: 2rem;
+  font-size: 1.3rem;
   color: gold;
   text-shadow: 1px 1px 4px black;
   justify-self: end;
@@ -394,7 +425,7 @@ nav ul li button:hover {
 .rewatching-label {
   grid-column: 4;
   grid-row: 2;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: orangered;
   text-shadow: 1px 1px 3px white;
   font-weight: bold;
@@ -404,28 +435,29 @@ nav ul li button:hover {
 
 .movie-note {
   grid-column: 2 / 5;
-  grid-row: 4;
+  grid-row: 3;
   font-size: 1.1rem;
+  align-self: end;
   color: #6b4e4e;
 }
 
 .movie-item .movie-button-1 {
   grid-column: 2;
-  grid-row: 5;
-  align-self: start;
+  grid-row: 4;
+  align-self: end;
   justify-self: end;
 }
 
 .movie-item .movie-button-2 {
   grid-column: 3;
-  grid-row: 5;
-  align-self: start;
+  grid-row: 4;
+  align-self: end;
   justify-self: end;
 }
 
 .movie-rating-edit {
   grid-column: 2;
-  grid-row: 4;
+  grid-row: 3;
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align contents to the left */
@@ -457,7 +489,7 @@ nav ul li button:hover {
 
 .movie-note-edit {
   grid-column: 3 / 5;
-  grid-row: 4;
+  grid-row: 3;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -586,20 +618,14 @@ nav ul li button:hover {
   border-radius: 4px;
 }
 
+/* ------------------- Footer --------------------- */
 
-
-/* ------------------- site logo style --------------------- */
-
-.movie-track-header-container {
-  display: flex;                            
-  align-items: center;
+footer {
+  text-align: center;
+  padding: 10px;
+  color: #fff8e1;
+  font-size: 0.9rem;
 }
-
-.movie-track-logo {
-  max-height: 150px;                        /* Adjust for logo size */
-  margin-right: 5px;                        /* spacing between the image and the heading */
-}
-
 
 /* ------------------- Fun stuff to try out --------------------- */
 
@@ -612,9 +638,9 @@ nav ul li button:hover {
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   
-  min-width: 100%;  /* Adjust to your desired width */
-  min-height: 100%; /* Adjust to your desired height */
-  margin: 50px auto; /* Center the container on the page */
+  max-width: 40vw;  /* Adjust to your desired width */
+  /* max-height: 100%; /* Adjust to your desired height */
+  margin: 10px auto; /* Center the container on the page */
 }
 
 .image-overlay {

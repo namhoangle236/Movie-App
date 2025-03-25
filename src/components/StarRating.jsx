@@ -34,7 +34,7 @@ const StarRating = ({ movie, userId }) => {
 
     return (
         <div className="movie-rating-edit" onClick={(e) => e.stopPropagation()}>
-            <label htmlFor="rating-slider">Your Rating:</label>
+            <label htmlFor="rating-slider">My Rating:</label>
             <input 
                 type="range"
                 id="rating-slider" 
