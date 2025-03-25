@@ -34,18 +34,18 @@ export default function Layout() {
 
                 {/* logo */}
                 <div className="movie-track-header-container">
-                <a href="/">
-                    <img
-                        src="/site-logo.png"
-                        alt="Movie Track Logo"
-                        className="movie-track-logo"
-                    />
-                </a>
+                    <a href="/">
+                        <img
+                            src="/site-logo.png"
+                            alt="Movie Track Logo"
+                            className="movie-track-logo"
+                        />
+                    </a>
 
-                {/* site name */}
-                <h1>
-                    <a href="/">Moovie Track</a>
-                </h1>
+                    {/* site name */}
+                    <h1>
+                        <a href="/">Moovie Track</a>
+                    </h1>
                 </div>
 
                 {/* Navigation */}
