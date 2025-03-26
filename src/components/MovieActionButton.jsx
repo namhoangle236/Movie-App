@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import {  collection, addDoc, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { useNavigate, useLocation} from 'react-router-dom';
 
-export default function MovieActionButton({ movie, movies, setMoviesFirebase, closeCard }) {
+export default function MovieActionButton({ movie, movies, setMoviesFirebase, closeCard = () => {} /* default empty function */}) {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -18,7 +18,7 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
             constraints.push(where("release_date", "==", movie.release_date));
         }
 
-        return query(movieRef, ...constraints);
+        return query(movieRef, ...constraints);                 // This returns a Firestore Query object that will search movieRef collection for: Movies with the same title and, if available, the same release_date
     }
 
 
@@ -96,13 +96,26 @@ export default function MovieActionButton({ movie, movies, setMoviesFirebase, cl
 
         // Add the movie to the "watchlist" and mark as "rewatching"
         try {
+            // Get fresh data from "watched"
+            const watchedRef = collection(db, "users", currentUser.uid, "watched");
+            const watchedQuery = getMovieQuery(watchedRef, movie);
+            const watchedSnapshot = await getDocs(watchedQuery);
+
+            let updatedMovie = movie;               // sets movie as a default
+
+            if (!watchedSnapshot.empty) {
+                // ...movie copies the original object
+                // ...watchedSnapshot.docs[0].data() adds the newest values (note, rating), overwriting older ones if they exist.
+                updatedMovie = { ...watchedSnapshot.docs[0].data() };           
+            }
+
             await addDoc(collection(db, "users", currentUser.uid, "watchlist"), {
-            title: movie.title,
-            image: movie.image,
-            overview: movie.overview,
-            ...(movie.release_date && { release_date: movie.release_date }), // Only adds if it exists. The spread operator (...) expands an object only if the condition is met.
-            ...(typeof movie.rating === "number" && {rating: movie.rating}), // will transfer rating into "to watch" list only for movies with rating
-            ...(movie.note && {note: movie.note}),                           // will transfer note into "to watch" list only for movies with notes
+            title: updatedMovie.title,
+            image: updatedMovie.image,
+            overview: updatedMovie.overview,
+            ...(updatedMovie.release_date && { release_date: updatedMovie.release_date }), // Only adds if it exists. The spread operator (...) expands an object only if the condition is met.
+            ...(typeof updatedMovie.rating === "number" && {rating: updatedMovie.rating}), // will transfer rating into "to watch" list only for movies with rating
+            ...(updatedMovie.note && {note: updatedMovie.note}),                           // will transfer note into "to watch" list only for movies with notes
             addedAt: new Date(),
             rewatching: true, // Mark as rewatching
             });
