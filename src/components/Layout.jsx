@@ -114,7 +114,7 @@ export default function Layout() {
                 <Outlet />
             </main>
             <footer role="contentinfo">
-                <p>Built by two movie lovers, just for you! &copy; 2025 Movie Tracker.</p>
+                <p>Built by two movie lovers, for movie lovers! &copy; 2025 Movie Track.</p>
             </footer>            
         </>
     )

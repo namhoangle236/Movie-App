@@ -38,18 +38,20 @@ export default function Register () {
       return;
     }
 
+    /* html approves test@example */
+    if (!/^[\w.-]+@([\w-]+\.)+[\w-]{2,}$/.test(email)) {
+      setError('Please enter a complete email address.');
+      return;
+    }
+
     try {
       setError('');
       await signup(email, password);
       navigate('/');
     } catch (err) {
-      console.log(err.code);
-      console.log(err.message);
       setShowChecklist(false); // Hide checklist but show another (non-password) error (like email in use)
       if (err.code === 'auth/email-already-in-use') {
-        setError('An account with this email already exists.');
-      } else if(!/^[\w.-]+@([\w-]+\.)+[\w-]{2,}$/.test(email)) {
-        setError('Please enter a complete email address.');                   /* html approves test@example */
+        setError('An account with this email already exists.');                  
       } else {
         setError(err.message);
       }
