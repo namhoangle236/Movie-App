@@ -368,61 +368,6 @@ button:hover {
 }
 
 
-/* -------------------------------------  MovieCard styles --------------------------------------- */
-.movie-card {
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-  background: rgba(255, 182, 182, 0.6);       /* background color with transparency of 0.5 (MUST USE RGB) */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.movie-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.text-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.movie-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.release-date {
-  font-size: 18px;
-  color: rgb(104, 104, 104);
-  margin-bottom: 12px;
-}
-
-.movie-card-poster {
-  width: 200px;
-  height: auto;
-  border-radius: 8px;
-}
-
-.overview {
-  background: rgba(255, 128, 128, 0.7);
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 12px;
-  font-size: 16px;
-  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.6);
-}
-
-
-
-
-
 /* ------------------- Login/Register styles --------------------- */
 
 .auth-container {
