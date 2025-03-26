@@ -21,7 +21,7 @@ export default function Watchlist() {
     
         const watchlistRef = collection(db, "users", currentUser.uid, "watchlist");             // Reference to the user’s watchlist collection
     
-        const unsubscribe = onSnapshot(watchlistRef, (snapshot) => {                            // firestore function, listen to the watchlist collection, get a live snapshot of the collection. AND store the stop listening function in 'unsubscribe' const
+        const unsubscribe = onSnapshot(watchlistRef, (snapshot) => {                            // firestore function, listens to the watchlist collection, gets a live snapshot of the collection. AND store the stop listening function in 'unsubscribe' const
             setMoviesFirebase(
                 snapshot.docs                                                                   // snapshot.docs is an array of all documents in the collection (movies in this case)
                     .map(doc => ({ id: doc.id, ...doc.data() }))                                // for doc in docs, return an object with id and data (movie details, added rating, notes, etc...)
@@ -92,7 +92,7 @@ export default function Watchlist() {
 
 
 
-// The onSnapshot is confusing as fuck! but it just behave different when calling onSnapshot directly vs calling what it returns
+// The onSnapshot is confusing as hell! but it just behave different when calling onSnapshot directly vs calling what it returns
 // and in this case, what onSnapshot returns is assigned to 'unsubscribe' const. So calling unsubscribe() will do different thing
 
 
@@ -123,3 +123,13 @@ export default function Watchlist() {
   
 //   // Now calling the variable holding the returned function
 //   myFunction();
+
+
+
+// Ana's notes
+
+// const unsubscribe = onSnapshot(watchlistRef, (snapshot) => {
+// This sets up a real-time listener to the watchlistRef. Firestore will now keep watching the watchlist for any live changes.
+// The onSnapshot function:
+// - Listens for changes
+// - Calls the callback function (the one inside (snapshot) => {}) every time the data changes
