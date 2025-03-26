@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
 import { doc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
 
@@ -7,9 +7,16 @@ const MovieNote = ({ movie, userId }) => {
     const [isSaved, setIsSaved] = useState(true);                               // Track if note is saved
     const maxChars = 200;
 
+    // if page refreshes with unsaved note
+    useEffect(() => {
+        const savedDraft = sessionStorage.getItem(`note-${movie.id}`);
+        if (savedDraft) setNote(savedDraft);
+    }, []);
+
     const handleChange = (e) => {
         setNote(e.target.value);                                                // value of the textarea input
         setIsSaved(false);                                                      // Mark as unsaved whenever user types
+        sessionStorage.setItem(`note-${movie.id}`, e.target.value);                    // 
     };
 
     const handleSaveNote = async () => {
@@ -33,6 +40,7 @@ const MovieNote = ({ movie, userId }) => {
                 }
 
             setIsSaved(true);                                                   // Mark as saved after updating Firebase
+            sessionStorage.removeItem(`note-${movie.id}`);                      // remove from session storage when the note is saved to the firebase
         } catch (error) {
             console.error("Error updating note:", error);
         }
