@@ -10,22 +10,33 @@ const MovieCard = ({ movie, onBack, movies, setMoviesFirebase }) => {
   return (
     <div className="movie-card">
       <button onClick={onBack} aria-label="Go back to the movie list">← Back</button>
-      <h3>{movie.title}</h3>
-      {/* If movie.image exists, it means the movie was displayed from Firestore → Use movie.image.
-        If there is no poster in API, show a placeholder image */}
-      <img src={
-          movie.image ? 
-          movie.image : movie.poster_path ? 
-          `https://image.tmdb.org/t/p/w200${movie.poster_path}` : '/no-poster-available.png' // fallback placeholder
-        } 
-        alt={'Movie poster of ' + movie.title} 
+      <div className="movie-content">
+        <div className="text-content">
+          <h3 className="movie-title">{movie.title}</h3>
+          <p className="release-date">Release date: {movie.release_date && movie.release_date}</p>
+          <p className="overview">
+            {movie.overview}
+          </p>
+        </div>
+        <img 
+          className="movie-card-poster"
+          src={
+            movie.image ? 
+            movie.image : movie.poster_path ? 
+            `https://image.tmdb.org/t/p/w200${movie.poster_path}` : '/no-poster-available.png' 
+          } 
+          alt={'Movie poster of ' + movie.title} 
+        />
+      </div>
+      <MovieActionButton 
+        movie={movie} 
+        movies={movies} 
+        setMoviesFirebase={setMoviesFirebase} 
+        closeCard={onBack} 
       />
-      <p>Release date: {movie.release_date && movie.release_date}</p>
-      <p>{movie.overview}</p>
-      <MovieActionButton  movie={movie} movies={movies} setMoviesFirebase={setMoviesFirebase} closeCard={onBack} />              {/*changes depending on where the movie list is displayed*/} 
     </div>
   );
-};
+}
 
 export default MovieCard;
 
