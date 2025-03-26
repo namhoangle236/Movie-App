@@ -8,6 +8,7 @@ const MusicPlayer = ({ src }) => {
         if (isPlaying) {
             audioRef.current.pause();
         } else {
+            audioRef.current.loop = true;
             audioRef.current.volume = 0.1;
             audioRef.current.play();
         }
