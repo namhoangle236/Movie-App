@@ -126,6 +126,21 @@ nav {
   margin-right: 50px;
 }
 
+.user-display {
+  font-size: 1.35rem;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 0 5px black;
+  margin-right: 15px;
+  display: flex;
+}
+
+.user-display span {
+  margin-left: 5px;
+  color: #ffffff;
+  font-style: italic;
+}
+
 nav ul {
   list-style: none; /* Remove bullet points */
   padding: 0;
@@ -144,7 +159,7 @@ nav ul li button {
   color: #ffffff;
   text-shadow: 0 0 50px #fc5656, 0 0 20px #ff0000;
   text-align: center;
-  font-size: 21px;
+  font-size: 1.3rem;
   font-weight: bold;
 }
 
@@ -210,6 +225,10 @@ button:hover {
     text-align: center;
   }
 
+  .user-display {
+    font-size: 1.1rem;
+  }
+  
   /* change nav to menu button */
   .menu-btn {
     display: block; /* Show menu button */

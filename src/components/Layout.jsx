@@ -63,6 +63,9 @@ export default function Layout() {
                             <>
                                 {currentUser ? (
                                     <>
+                                        <li className="user-display">
+                                            Hello, <span>{currentUser.email.split("@")[0]}</span>
+                                        </li>
                                         <li>
                                             <Link 
                                                 to="/" 
