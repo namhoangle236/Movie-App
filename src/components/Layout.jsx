@@ -1,6 +1,7 @@
 import { useAuth } from '../context/AuthContext';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';// Layout Component
 import { useState } from 'react';
+import MusicPlayer from "../components/MusicPlayer";
 
 
 
@@ -118,7 +119,8 @@ export default function Layout() {
             </main>
             <footer role="contentinfo">
                 <p>Built by two movie lovers, for movie lovers! &copy; 2025 Movie Track.</p>
-            </footer>            
+            </footer>   
+            <MusicPlayer src="/bg-music.mp3" />        
         </>
     )
 }

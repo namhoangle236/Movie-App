@@ -900,3 +900,33 @@ footer {
   text-align: center;
   border-radius: 10px;
 } */
+
+
+
+/* ------------------- music button styles --------------------- */
+.music-toggle {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(150, 99, 99, 0.6);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 18px;
+
+  /* round the button */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  
+  /* center the music the emoji */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.music-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
