@@ -37,7 +37,7 @@ const MovieNote = ({ movie, userId }) => {
                 // const querySnapshot = await getDoc(movieRefWatchlist);
                 if (!querySnapshot.empty) {
                     await setDoc(querySnapshot.docs[0].ref, { note: note }, { merge: true });         // querySnapshot.docs: this is an array of all matching Firestore documents. the document reference — tells Firestore exactly which doc to update.
-                }
+                }                                                                                     // Without merge: true, Firestore would replace the entire document with only the note.
 
             setIsSaved(true);                                                   // Mark as saved after updating Firebase
             sessionStorage.removeItem(`note-${movie.id}`);                      // remove from session storage when the note is saved to the firebase
