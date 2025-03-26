@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
-import { collection, getDocs} from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { useSearchParams } from 'react-router-dom';
 import MovieList from "../components/MovieList";
 import MovieCard from "../components/MovieCard";
@@ -13,26 +13,33 @@ export default function Watchlist() {
     const [moviesFirebase, setMoviesFirebase] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
 
-    // We use useEffect in this case to fetch the user's watchlist from Firestore only when the currentUser changes.
+
+
+    // Get the user's current watchlist from Firestore
     useEffect(() => {
-        async function fetchWatchList() {
-            if (!currentUser) return;
-
-            // Fetch all movies from Firestore under the user's watchlist collection
-            const querySnapshot = await getDocs(collection(db, "users", currentUser.uid, "watchlist"));
-
-            // Convert Firestore documents into an array and update state
-            // Firestore stores each movie as a document, and each document has an ID plus the data inside it.
-            // To convert Firestore documents into an array of movies, we use:
+        if (!currentUser) return;
+    
+        const watchlistRef = collection(db, "users", currentUser.uid, "watchlist");             // Reference to the user’s watchlist collection
+    
+        const unsubscribe = onSnapshot(watchlistRef, (snapshot) => {                            // firestore function, listen to the watchlist collection, get a live snapshot of the collection. AND store the stop listening function in 'unsubscribe' const
             setMoviesFirebase(
-                querySnapshot.docs
-                    .map(doc => ({ id: doc.id, ...doc.data()}))
-                    .sort((a,b) => b.addedAt?.seconds - a.addedAt?.seconds)                     // sorting movies in descending order
-                );
-        };
+                snapshot.docs                                                                   // snapshot.docs is an array of all documents in the collection (movies in this case)
+                    .map(doc => ({ id: doc.id, ...doc.data() }))                                // for doc in docs, return an object with id and data (movie details, added rating, notes, etc...)
+                    .sort((a, b) => b.addedAt?.seconds - a.addedAt?.seconds)                    // sort the movies by the time they were added
+            );
+        });
+        
+        // note: this return does not run when the component mounts,
+        // it runs when the component unmounts ONLY!
+        // useEffect has 2 main parts, and part 1 has 2 smaller parts
+        // 1. The first part is the function that runs when the component mounts
+        // 2. The second part is the function that runs when the component unmounts
 
-        fetchWatchList();
-    }, [currentUser]);          // runs on first component load and every time currentUser changes
+        return () => unsubscribe();                                                             // This 'return' only runs when the component unmounts, calling a anonymous function that calls the 'unsubscribe', which holds the stop listening function, returned by onSnapshot
+    }, [currentUser]);
+
+
+
 
     const handleMovieSelect = (movie) => {
         setSelectedMovie(movie);
@@ -78,5 +85,41 @@ export default function Watchlist() {
 }
 
 
-// notes: .seconds -> represents the time in seconds since January 1, 1970 (Unix time).
+// notes:
+// .seconds -> represents the time in seconds since January 1, 1970 (Unix time).
 // ?. is optional chaining. It checks if addeddAt exists before accessing .seconds. It prevents errors.
+
+
+
+
+// The onSnapshot is confusing as fuck! but it just behave different when calling onSnapshot directly vs calling what it returns
+// and in this case, what onSnapshot returns is assigned to 'unsubscribe' const. So calling unsubscribe() will do different thing
+
+
+
+
+
+// example of a function similar to onSnapshot:
+
+// A function that returns another function
+// function createFunction() {
+//     // This is the function that will be returned
+//     const innerFunction = () => {
+//       console.log("I am the inner function, called through the variable!");
+//     };
+  
+//     // This function is also available when called directly
+//     console.log("I am the outer function, called directly!");
+  
+//     // Returning the inner function
+//     return innerFunction;
+//   }
+  
+//   // Calling the outer function directly
+//   createFunction();  // This will log: "I am the outer function, called directly!"
+  
+//   // Assigning the returned function to a variable
+//   const myFunction = createFunction();  // This will log: "I am the outer function, called directly!"
+  
+//   // Now calling the variable holding the returned function
+//   myFunction();
